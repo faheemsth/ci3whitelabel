@@ -11,15 +11,19 @@
     </div>
     <!--begin::Heading-->
     
-    <div class="fv-row mb-8">
+   <div class="row">
+       <div class="col-md-6">
+            <div class="fv-row mb-8">
         <!--begin::Name-->
         <input type="text" placeholder="Enter Your Full Name" name="name" autocomplete="off" class="form-control bg-transparent" />
         <!--end::Name-->
     </div>
-    <!--begin::Input group=-->
+       </div>
+       <div class="col-md-6">
+           <!--begin::Input group=-->
     <div class="fv-row mb-8">
         <!--begin::Gender-->
-        <select class="form-select" data-control="select2" name="sex" data-placeholder="Select Sex">
+        <select class="form-select" data-control="select2" name="sex" data-placeholder="Select Gender">
             <option></option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -29,19 +33,74 @@
         <!--end::Gender-->
     </div>
     <!--end::Input Group-->
-     <!--begin::Input group=-->
+       </div>
+   </div>
+   <div class="row">
+       <div class="col-md-6">
+             <!--begin::Input group=-->
     <div class="fv-row mb-8">
         <!--begin::Phone-->
-        <input type="text" placeholder="Enter Your Phone Number" name="phone" autocomplete="off" class="form-control bg-transparent" />
+        <input type="text" placeholder="Enter Your Phone" name="phone" autocomplete="off" class="form-control bg-transparent" />
         <!--end::Phone-->
     </div>
-    <!--begin::Input group=-->
+       </div>
+       <div class="col-md-6">
+             <!--begin::Input group=-->
     <div class="fv-row mb-8">
         <!--begin::Email-->
         <input type="text" placeholder="Enter Your Email" name="email" autocomplete="off" class="form-control bg-transparent" />
         <!--end::Email-->
     </div>
     <!--begin::Input group-->
+       </div>
+   </div>
+   <div class="row">
+       <div class="col-md-6">
+             <!--begin::Input group=-->
+    <div class="fv-row mb-8">
+        <!--begin::Gender-->
+        <select class="form-select" data-control="select2" name="martial_status" data-placeholder="Martial Status">
+            <option></option>
+            <option value="married">Married</option>
+            <option value="unmarried">Unmarried</option>
+        </select>
+        <!--end::Gender-->
+    </div>
+       </div>
+       <div class="col-md-6">
+             <!--begin::Input group=-->
+    <div class="fv-row mb-8">
+        <!--begin::Email-->
+        <input type="text" placeholder="Enter Job Title" name="current_job" autocomplete="off" class="form-control bg-transparent" />
+        <!--end::Email-->
+    </div>
+    <!--begin::Input group-->
+       </div>
+   </div>
+    <div class="row">
+       <div class="col-md-6">
+             <!--begin::Input group=-->
+     <div class="fv-row mb-8">
+        <!--begin::Email-->
+        <input type="text" placeholder="Enter Country Name" name="country" autocomplete="off" class="form-control bg-transparent" />
+        <!--end::Email-->
+    </div>
+       </div>
+       <div class="col-md-6">
+             <!--begin::Input group=-->
+    <div class="fv-row mb-8">
+        <!--begin::Email-->
+        <input type="text" placeholder="Enter Province Name" name="province" autocomplete="off" class="form-control bg-transparent" />
+        <!--end::Email-->
+    </div>
+    <!--begin::Input group-->
+       </div>
+   </div>
+   <div class="fv-row mb-8">
+        <!--begin::Email-->
+        <input type="text" placeholder="Enter Address" name="address" autocomplete="off" class="form-control bg-transparent" />
+        <!--end::Email-->
+    </div>
     <div class="fv-row mb-8" data-kt-password-meter="true">
         <!--begin::Wrapper-->
         <div class="mb-1">

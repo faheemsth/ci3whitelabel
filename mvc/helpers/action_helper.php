@@ -133,15 +133,7 @@
         if ( visibleButton($uri) ) {
             return anchor($uri, "<i class='fa fa-trash'></i>",
                 [
-                    'onclick'             => "Swal.fire({
-                        text: 'Sorry, Invalid login details, please try again.',
-                        icon: 'error',
-                        buttonsStyling: !1,
-                        confirmButtonText: 'Ok, got it!',
-                        customClass: {
-                        confirmButton: 'btn btn-primary'
-                        }
-                    })",
+                    'onclick'             => "return confirm('you are about to delete a record. This cannot be undone. are you sure?')",
                     'class'               => 'btn btn-danger btn-xs mrg',
                     'data-placement'      => 'top',
                     'data-toggle'         => 'tooltip',

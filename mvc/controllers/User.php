@@ -432,6 +432,11 @@ class User extends Admin_Controller {
 				$array["phone"] = $this->input->post("phone"); 
 				$array["jod"] = date("Y-m-d");
 				$array["username"] = $this->input->post("email");
+				$array["martial_status"] = $this->input->post("martial_status");
+				$array["current_job"] = $this->input->post("current_job");
+				$array["country"] = $this->input->post("country");
+				$array["province"] = $this->input->post("province");
+				$array["address"] = $this->input->post("address");
 				$array["password"] = $this->user_m->hash($this->input->post("password"));
 				$array["usertypeID"] = 18;
 				$array["create_date"] = date("Y-m-d h:i:s");
