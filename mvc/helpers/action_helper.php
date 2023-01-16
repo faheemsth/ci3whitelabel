@@ -904,21 +904,27 @@
                         if ( base_url($node['link']) == $current_url ) {
                             $active = 'active';
                         }
-
-                        $menu .= '<li class="' . ( $f ? $treeView : '' ) . $active . '">';
-                        $menu .= anchor($node['link'],
-                            '<i class="fa ' . ( $node['icon'] != null ? $node['icon'] : 'fa-home' ) . '"></i><span>' . ( $CI->lang->line('menu_' . $node['menuName']) != null ? $CI->lang->line('menu_' . $node['menuName']) : $node['menuName'] ) . '</span> ' . ( $f ? $leftIcon : '' ));
-                        if ( $f ) {
-                            $menu .= '<ul class="treeview-menu">';
-                            display_menu($node['child'], $menu);
-                            $menu .= "</ul>";
+                        $subbmmenu  =   '';
+                        $subbmmenu_c  =   '';
+                        if(count($node['child'])){
+                            $subbmmenu  =   ' menu-item menu-accordion ';
+                            $subbmmenu_c  =   ' data-kt-menu-trigger="click" ';
                         }
-                        $menu .= "</li>";
+
+                        $menu .= '<div '. $subbmmenu_c .' class="' . ( $f ? $treeView : '' ) . $active . $subbmmenu . '">';
+                        $menu .= anchor($node['link'],
+                            '<i class="fa ' . ( $node['icon'] != null ? $node['icon'] : 'fa-home' ) . '"></i><span>' . ( $CI->lang->line('menu_' . $node['menuName']) != null ? $CI->lang->line('menu_' . $node['menuName']) : $node['menuName'] ) . '</span> ' . ( $f ? $leftIcon : '' ),array('class' => 'menu-link'));
+                        if ( $f ) {
+                            $menu .= '<div class="menu-sub menu-sub-accordion">';
+                            display_menu($node['child'], $menu);
+                            $menu .= "</div>";
+                        }
+                        $menu .= "</div>";
                     }    
                     //End       
                 }
             }else{
-                $leftIcon = '<i class="fa fa-angle-left pull-right"></i>';
+                $leftIcon = '<span class="menu-arrow"></span>';
 
                 $f = 0;
                 if ( isset($node['child']) ) {
@@ -930,7 +936,7 @@
                         $f    = 0;
                         $node = current($node['child']);
                     }
-                    $treeView = 'menu-item here show menu-accordion';
+                    $treeView = '    ';
                     $active   = '';
 
                     $current_url = current_url();
@@ -958,18 +964,29 @@
 
 
                     if ( base_url($node['link']) == $current_url ) {
-                        $active = 'menu-link';
+                        $active = ' here show ';
                     }
 
-                    $menu .= '<li class="' . ( $f ? $treeView : '' ) . $active . '">';
+                    
+                        $subbmmenu  =   '';
+                        $subbmmenu_c  =   '';
+                        
+                        if ( $f ) {
+                            if(count($node['child'])){
+                                $subbmmenu  =   'menu-accordion ';
+                                $subbmmenu_c  =   ' data-kt-menu-trigger="click" ';
+                            }
+                        }
+
+                        $menu .= '<div '. $subbmmenu_c .' class="  menu-item ' . ( $f ? $treeView : '' ) . $active . $subbmmenu . '">';
                     $menu .= anchor($node['link'],
-                        '<i class="fa ' . ( $node['icon'] != null ? $node['icon'] : 'fa-home' ) . '"></i><span>' . ( $CI->lang->line('menu_' . $node['menuName']) != null ? $CI->lang->line('menu_' . $node['menuName']) : $node['menuName'] ) . '</span> ' . ( $f ? $leftIcon : '' ));
+                        '<i class="fa ' . ( $node['icon'] != null ? $node['icon'] : 'fa-home' ) . '"></i><span>' . ( $CI->lang->line('menu_' . $node['menuName']) != null ? $CI->lang->line('menu_' . $node['menuName']) : $node['menuName'] ) . '</span> ' . ( $f ? $leftIcon : '' ),array('class' => 'menu-link'));
                     if ( $f ) {
-                        $menu .= '<ul class="menu-title">';
-                        display_menu($node['child'], $menu);
-                        $menu .= "</ul>";
+                         $menu .= '<div class="menu-sub menu-sub-accordion">';
+                            display_menu($node['child'], $menu);
+                            $menu .= "</div>";
                     }
-                    $menu .= "</li>";
+                    $menu .= "</div>";
                 }
             }
 
