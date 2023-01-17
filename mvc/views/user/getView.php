@@ -1,25 +1,17 @@
 <?php if(customCompute($profile)) { ?>
 <div class="well">
     <div class="row">
-        <div class="col-sm-6">
-            <?php if(!permissionChecker('user_view') && permissionChecker('user_add')) { echo btn_sm_add('user/add', $this->lang->line('add_user')); } ?>
-
-            <button class="btn-cs btn-sm-cs" onclick="javascript:printDiv('printablediv')"><span class="fa fa-print"></span> <?=$this->lang->line('print')?> </button>
-            <?php
-                echo btn_add_pdf('user/print_preview/'.$profile->userID, $this->lang->line('pdf_preview')) 
-            ?>
-
-            <?php if(permissionChecker('user_edit')) { echo btn_sm_edit('user/edit/'.$profile->userID, $this->lang->line('edit')); } 
-            ?>
-            <button class="btn-cs btn-sm-cs" data-toggle="modal" data-target="#mail"><span class="fa fa-envelope-o"></span> <?=$this->lang->line('mail')?></button>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb">
-                <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a></li>
+ 
+            <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-users mx-2"></i> <?=$this->lang->line('panel_title')?></h3>
+        <ol class="breadcrumb">
+           <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a></li>
                 <li><a href="<?=base_url("user/index")?>"><?=$this->lang->line('menu_user')?></a></li>
-                <li class="active"><?=$this->lang->line('view')?></li>
-            </ol>
-        </div>
+                <li class="active mx-2"><?=$this->lang->line('view')?></li>
+        </ol>
+    </div>
+            
+     
     </div>
 </div>
 
@@ -42,6 +34,21 @@
                         <li class="list-group-item" style="background-color: #FFF">
                             <b><?=$this->lang->line('user_phone')?></b> <a class="pull-right"><?=$profile->phone?></a>
                         </li>
+                        <li class="list-group-item" style="background-color: #FFF">
+                            <b><span><?=$this->lang->line("user_jod")?> </span> </b> <a class="pull-right"><?=date("d M Y", strtotime($profile->jod))?></a>
+                        </li>
+                        <li class="list-group-item" style="background-color: #FFF">
+                            <b><span><?=$this->lang->line("user_religion")?> </span> </b> <a class="pull-right"><?=$profile->religion?></a>
+                        </li>
+                         <li class="list-group-item" style="background-color: #FFF">
+                            <b><span><?=$this->lang->line("user_email")?> </span> </b> <a class="pull-right"><?=$profile->email?></a>
+                        </li>
+                        <li class="list-group-item" style="background-color: #FFF">
+                            <b><span><?=$this->lang->line("user_address")?> </span> </b> <a class="pull-right"><?=$profile->address?></a>
+                        </li>
+                        <li class="list-group-item" style="background-color: #FFF">
+                            <b><span><?=$this->lang->line("user_username")?> </span> </b> <a class="pull-right"><?=$profile->username?></a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -49,40 +56,64 @@
         
         <div class="col-sm-9">
             <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#profile" data-toggle="tab"><?=$this->lang->line('user_profile')?></a></li>
+                <ul class="nav nav-tabs flex-nowrap text-nowrap">
+                 
                     <?php if((permissionChecker('user_add') && permissionChecker('user_delete'))  || ($this->session->userdata('usertypeID') == $profile->usertypeID && $this->session->userdata('loginuserID') == $profile->userID)) {  ?>
-                         
+                          <li class="active nav-item w-100 me-0 mb-md-2"><a class="nav-link w-50 active btn btn-flex btn-active-light-info" href="#document" data-toggle="tab"><?=$this->lang->line('user_document')?></a></li>
                     <?php } ?>
                 </ul>
 
-                <div class="tab-content">
-                    <div class="active tab-pane" id="profile">
-                        <div class="panel-body profile-view-dis">
-                            <div class="row">
-                                <div class="profile-view-tab">
-                                    <p><span><?=$this->lang->line("user_jod")?> </span>: <?=date("d M Y", strtotime($profile->jod))?></p>
-                                </div>
-                                <div class="profile-view-tab">
-                                    <p><span><?=$this->lang->line("user_religion")?> </span>: <?=$profile->religion?></p>
-                                </div>
-                                <div class="profile-view-tab">
-                                    <p><span><?=$this->lang->line("user_email")?> </span>: <?=$profile->email?></p>
-                                </div>
-                                <div class="profile-view-tab">
-                                    <p><span><?=$this->lang->line("user_address")?> </span>: <?=$profile->address?></p>
-                                </div>
 
-                                <div class="profile-view-tab">
-                                    <p><span><?=$this->lang->line("user_username")?> </span>: <?=$profile->username?></p>
-                                </div>
+                <div class="tab-pane" id="document">
+                           
+                            <div id="hide-table">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th><?=$this->lang->line('slno')?></th>
+                                            <th><?=$this->lang->line('user_title')?></th>
+                                            <th>Passing Year</th>
+                                            <th><?=$this->lang->line('user_date')?></th>
+                                            <th><?=$this->lang->line('action')?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if(customCompute($documents)) { $i = 1; foreach ($documents as $document) {  ?>
+                                            <tr>
+                                                <td data-title="<?=$this->lang->line('slno')?>">
+                                                    <?php echo $i; ?>
+                                                </td>
+
+                                                <td data-title="<?=$this->lang->line('user_title')?>">
+                                                    <?=$document->title?>
+                                                </td>
+                                                <td data-title="<?=$this->lang->line('user_title')?>">
+                                                    <?=$document->passing_year?>
+                                                </td>
+
+                                                <td data-title="<?=$this->lang->line('user_date')?>">
+                                                    <?=date('d M Y', strtotime($document->create_date))?>
+                                                </td>
+
+                                                <td data-title="<?=$this->lang->line('action')?>">
+                                                    <?php 
+                                                        if((permissionChecker('user_add') && permissionChecker('user_delete')) || ($this->session->userdata('usertypeID') == $profile->usertypeID && $this->session->userdata('loginuserID') == $profile->userID)) {
+                                                            echo btn_download('user/download_document/'.$document->documentID.'/'.$profile->userID.'/'.$profile->usertypeID, $this->lang->line('download'));
+                                                        }?>
+                                                        &nbsp;
+                                                        <?php
+
+                                                        if(permissionChecker('user_add') && permissionChecker('user_delete')) {
+                                                            echo btn_delete_show('user/delete_document/'.$document->documentID.'/'.$profile->userID.'/'.$profile->usertypeID, $this->lang->line('delete'));
+                                                        } 
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                        <?php $i++; } } ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                    </div>
-
-                    
- 
-                </div>
             </div>
         </div>
 

@@ -146,10 +146,10 @@
 
     function btn_delete_show( $uri, $name )
     {
-        return anchor($uri, "<i class='fa fa-trash-o'></i>",
+        return anchor($uri, "<i class='fa fa-trash'></i>",
             [
                 'onclick'             => "return confirm('you are about to delete a record. This cannot be undone. are you sure?')",
-                'class'               => 'btn btn-danger btn-xs mrg',
+                'class'               => 'btn btn-danger btn-sm mrg',
                 'data-placement'      => 'top',
                 'data-toggle'         => 'tooltip',
                 'data-original-title' => $name
@@ -810,7 +810,7 @@
     function btn_download( $uri, $name )
     {
         return anchor($uri, "<i class='fa fa-download'></i>",
-            "class='btn btn-success btn-xs mrg' data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "'");
+            "class='btn btn-success btn-sm mrg' data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "'");
     }
 
     function btn_download_file( $uri, $name, $lang )

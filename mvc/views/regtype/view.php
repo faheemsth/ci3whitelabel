@@ -1,4 +1,4 @@
-<div class="well">
+<div class="card">
     <div class="row">
         <div class="col-sm-6">
             <button class="btn-cs btn-sm-cs" onclick="javascript:printDiv('printablediv')"><span class="fa fa-print"></span> <?=$this->lang->line('print')?> </button>

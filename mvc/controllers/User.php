@@ -390,6 +390,7 @@ class User extends Admin_Controller {
 			$this->pluckInfo();
 			$this->basicInfo($users); 
 			$this->paymentInfo($users); 
+			$this->documentinfo($users); 
 
 			if(customCompute($users)) {
 				$schoolyearID = $this->session->userdata('defaultschoolyearID');
