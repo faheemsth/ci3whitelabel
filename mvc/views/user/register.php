@@ -82,8 +82,15 @@
              <!--begin::Input group=-->
      <div class="fv-row mb-8">
         <!--begin::Email-->
-        <input type="text" placeholder="Enter Country Name" name="country" autocomplete="off" class="form-control bg-transparent" />
-        <!--end::Email-->
+         <!--begin::Gender-->
+        <select class="form-select" data-control="select2" name="country" data-placeholder="Select Country">
+             <option></option>
+            <?php foreach (getCountrys() as $key=>$value) { ?>
+             <option value="<?php echo $key ?>"><?php echo $value ?></option>
+              <?php }
+              ?>
+        </select>
+        <!--end::Gender-->
     </div>
        </div>
        <div class="col-md-6">

@@ -5,7 +5,7 @@
 <head>
 		<title>Society of Ultrasound in Pakistan</title>
 		<meta charset="utf-8" />
-		<link rel="shortcut icon" href="https://icaahs.com/wp-content/uploads/2022/08/cropped-android-chrome-512x512-1-180x180.png" />
+		<link rel="shortcut icon" href="<?php echo base_url('assets/frontend/media/logos/suplogo.png')?>" />
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts-->

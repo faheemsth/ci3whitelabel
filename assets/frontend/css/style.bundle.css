@@ -30007,7 +30007,7 @@ html:not([data-theme=dark]) .theme-light-bg-body{
     padding:calc(.825rem + 1px) calc(1.75rem + 1px)
 }
 .btn-group-sm>.btn:not(.btn-outline):not(.btn-dashed):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon),.btn:not(.btn-outline):not(.btn-dashed):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon).btn-sm{
-    padding:calc(.55rem + 1px) calc(1.25rem + 1px)
+    padding:calc(.30rem + 1px) calc(.75rem + 1px)
 }
 .btn.btn-link{
     border:0;

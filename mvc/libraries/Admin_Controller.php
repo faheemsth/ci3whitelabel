@@ -77,11 +77,11 @@ class Admin_Controller extends MY_Controller {
             'signin/signin',
             'signin/forget_password',
             'user/register',
+            'user/docupload',
             'signin/dashboard'
 
         ];
-
-        if ( in_array(uri_string(), $exceptionUris) == false ) {
+               if ( in_array(uri_string(), $exceptionUris) == false ) {
             if ( $this->signin_m->loggedin() == false ) {
                     $url = base_url("signin/index");
             }

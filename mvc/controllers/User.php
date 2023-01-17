@@ -20,6 +20,7 @@ class User extends Admin_Controller {
 		$this->load->model('usertype_m');
 		$this->load->model('document_m');   
 		$this->load->model("make_payment_m"); 
+		$this->load->model("usermeta_m"); 
 		$language = $this->session->userdata('lang');
 		$this->lang->load('user', $language);
 	}
@@ -404,7 +405,251 @@ class User extends Admin_Controller {
 			$this->load->view('_layout_main', $this->data);
 		}
 	}
+		public function update_status() {
+		if(($this->data['siteinfos']->school_year == $this->session->userdata('defaultschoolyearID')) || ($this->session->userdata('usertypeID') == 1)) {
+			$this->data['headerassets'] = array(
+				'css' => array(
+					'assets/datepicker/datepicker.css',
+					'assets/select2/css/select2.css',
+					'assets/select2/css/select2-bootstrap.css'
+				),
+				'js' => array(
+					'assets/datepicker/datepicker.js',
+					'assets/select2/select2.js'
+				)
+			);
+			$usertype = $this->session->userdata("usertype");
+			$schoolyearID = $this->session->userdata('defaultschoolyearID');
+			$userID = htmlentities(escapeString($this->uri->segment(3)));
+			$url = htmlentities(escapeString($this->uri->segment(4)));
+			if((int)$userID ) {
+				//$this->data['classes'] = $this->user_m->get_user();
+				$this->data['user'] = $this->user_m->get_single_user(array('userID' => $userID), TRUE);
 
+				// $this->data['parents'] = $this->parents_m->get_parents();
+	            // $this->data['studentgroups'] = $this->studentgroup_m->get_studentgroup();
+
+				// if(customCompute($this->data['user'])) {
+				// 	$classesID = $this->data['student']->srclassesID;
+				// 	$this->data['sections'] = $this->section_m->general_get_order_by_section(array('classesID' => $classesID));
+	            //     $this->data['optionalSubjects'] = $this->subject_m->general_get_order_by_subject(array("classesID" =>$classesID, 'type' => 0));
+	            //     if($this->input->post('optionalSubjectID')) {
+	            //         $this->data['optionalSubjectID'] = $this->input->post('optionalSubjectID');
+	            //     } else {
+	            //         $this->data['optionalSubjectID'] = 0;
+	            //     }
+				// }
+
+				
+				if(customCompute($this->data['user'])) {
+					if($_POST) {
+						$rules = $this->status_rules(); 
+						$this->form_validation->set_rules($rules);
+						if ($this->form_validation->run() == FALSE) {
+							$this->data["subview"] = "user/update_status";
+							$this->load->view('_layout_main', $this->data);
+						} else {
+							$array = array();
+							$array["active"] 		= $this->input->post("active");
+							$array["modify_date"] 	= date("Y-m-d H:i:s");
+							 
+							$this->user_m->update_user($array, $userID);
+
+							$arr 	 = array(
+											'status' 	=> $this->input->post("active"), 
+											'reason' 	=> $this->input->post("reason"), 
+											'username' 	=> $this->session->userdata('username'), 
+											);
+
+							$array_meta = array(
+			                    "userID" 	=> $userID,
+			                    "meta_key" 		=> 'status_update',
+			                    "meta_value" 	=> serialize($arr),
+			                );
+                			$this->usermeta_m->insert_usermeta($array_meta);
+
+							$this->session->set_flashdata('success', $this->lang->line('menu_success'));
+							redirect(base_url("user/index"));
+						}
+					} else {
+						$this->data["subview"] = "user/update_status";
+						$this->load->view('_layout_main', $this->data);
+					}
+				} else {
+					$this->data["subview"] = "error";
+					$this->load->view('_layout_main', $this->data);
+				}
+			} else {
+				$this->data["subview"] = "error";
+				$this->load->view('_layout_main', $this->data);
+			}
+		} else {
+			$this->data["subview"] = "error";
+			$this->load->view('_layout_main', $this->data);
+		}
+	}
+	public function docupload() {
+
+		$this->data['headerassets'] = array(
+			'css' => array(
+				'assets/datepicker/datepicker.css'
+			),
+			'js' => array(
+				'assets/datepicker/datepicker.js'
+			)
+		);
+		//$this->data['usertypes'] = $this->usertype_m->get_usertype();
+		$returnArray = ' ';
+		if($_POST) {
+				
+					$title = 'ID Card Front';
+					$fff 	=	$this->unique_document_upload('id_front_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = NULL;
+					$userID = $this->session->userdata('registerUserid');
+					$usertypeID = 18;
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID
+					);
+					$this->document_m->insert_document($array);
+					$title = 'ID Card Back';
+					$fff 	=	$this->unique_document_upload('id_back_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = NULL;
+					$userID = $this->session->userdata('registerUserid');
+					$usertypeID = 18;
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID
+					);
+					$this->document_m->insert_document($array);
+					$title = 'Matric';
+					$fff 	=	$this->unique_document_upload('matric_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = $this->input->post("passing_year_matric");
+					$userID = $this->session->userdata('registerUserid');
+					$usertypeID = 18;
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID
+					);
+					$this->document_m->insert_document($array);
+					$title = 'Inter';
+					$fff 	=	$this->unique_document_upload('inter_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = $this->input->post("passing_year_inter");
+					$userID = $this->session->userdata('registerUserid');
+					$usertypeID = 18;
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID
+					);
+					$this->document_m->insert_document($array);
+					$title = 'Undergraduate';
+					$fff 	=	$this->unique_document_upload('undergraduate_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = $this->input->post("passing_year_undergraduate");
+					$userID = $this->session->userdata('registerUserid');
+					$usertypeID = 18;
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID
+					);
+					$this->document_m->insert_document($array);
+					$title = 'Postgraduate';
+					$fff 	=	$this->unique_document_upload('postgraduate_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = $this->input->post("passing_year_postgraduate");
+					$userID = $this->session->userdata('registerUserid');
+					$usertypeID = 18;
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID
+					);
+					$this->document_m->insert_document($array);
+					$title = 'Ph.D';
+					$fff 	=	$this->unique_document_upload('phd_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = $this->input->post("passing_year_phd");
+					$userID = $this->session->userdata('registerUserid');
+					$usertypeID = 18;
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID
+					);
+					$this->document_m->insert_document($array);
+					$title = 'PMDC';
+					$fff 	=	$this->unique_document_upload('pmdc_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = $this->input->post("passing_year_pmdc");
+					$userID = $this->session->userdata('registerUserid');
+					$usertypeID = 18;
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID
+					);
+					$this->document_m->insert_document($array);
+					$returnArray = [ 'return' => true, 'message' => 'Success'];
+				echo json_encode($returnArray);
+				
+			}
+		 else {
+			$this->data["subview"] = "user/docupload";
+			$this->load->view('_layout_signup', $this->data);
+			
+		}
+		
+		
+	}
 	
 	public function register() {
 		$this->data['headerassets'] = array(
@@ -450,7 +695,14 @@ class User extends Admin_Controller {
 				// $this->usercreatemail($this->input->post('email'), $this->input->post('username'), $this->input->post('password'));
 
 				$this->user_m->insert_user($array);
-				$returnArray = [ 'return' => true, 'message' => 'Success' ];
+				$lastId = $this->db->insert_id();
+				$session = [
+                                "registerUserid"         => $lastId,
+                                "name"                	 => $this->input->post("name"),
+                                "email"               	 => $this->input->post("email"),
+                            ];
+                            $this->session->set_userdata($session);
+				$returnArray = [ 'return' => true, 'message' => 'Success', 'userid' => $lastId, ];
 				echo json_encode($returnArray);
 				// $this->session->set_flashdata('success', $this->lang->line('menu_success'));
 				// redirect(base_url("signin/index"));
@@ -482,7 +734,22 @@ class User extends Admin_Controller {
 		}
 	}
 
-	 
+	 protected function status_rules() {
+		$rules = array(
+			array(
+				'field' => 'active',
+				'label' => 'Status',
+				'rules' => 'trim|required|xss_clean'
+			), 
+			array(
+				'field' => 'reason',
+				'label' => 	'Reason',
+				'rules' => 'trim|required|xss_clean'
+			)   
+		);
+		return $rules;
+	}
+
 
 	private function salaryInfo($users) {
 		if(customCompute($users)) {
@@ -571,24 +838,55 @@ class User extends Admin_Controller {
 	protected function rules_documentupload() {
 		$rules = array(
 			array(
-				'field' => 'title',
-				'label' => $this->lang->line("user_title"),
-				'rules' => 'trim|required|xss_clean|max_length[128]'
+				'field' => 'id_front_file',
+				'label' => $this->lang->line("id_front_file"),
+				'rules' => 'trim|xss_clean|max_length[200]|callback_unique_document_upload[]'
 			),
 			array(
-				'field' => 'file',
+				'field' => 'id_back_file',
 				'label' => $this->lang->line("user_file"),
 				'rules' => 'trim|xss_clean|max_length[200]|callback_unique_document_upload'
-			)
+			),
+			array(
+				'field' => 'matirc_file',
+				'label' => $this->lang->line("user_file"),
+				'rules' => 'trim|xss_clean|max_length[200]|callback_unique_document_upload'
+			),
+			array(
+				'field' => 'inter_file',
+				'label' => $this->lang->line("user_file"),
+				'rules' => 'trim|xss_clean|max_length[200]|callback_unique_document_upload'
+			),
+			array(
+				'field' => 'undergraduate_file',
+				'label' => $this->lang->line("user_file"),
+				'rules' => 'trim|xss_clean|max_length[200]|callback_unique_document_upload'
+			),
+			array(
+				'field' => 'postgraduate_file',
+				'label' => $this->lang->line("user_file"),
+				'rules' => 'trim|xss_clean|max_length[200]|callback_unique_document_upload'
+			),
+			array(
+				'field' => 'phd_file',
+				'label' => $this->lang->line("user_file"),
+				'rules' => 'trim|xss_clean|max_length[200]|callback_unique_document_upload'
+			),
+			array(
+				'field' => 'pmdc_file',
+				'label' => $this->lang->line("user_file"),
+				'rules' => 'trim|xss_clean|max_length[200]|callback_unique_document_upload'
+			),
 		);
 
 		return $rules;
 	}
 
-	public function unique_document_upload() {
+	public function unique_document_upload($getfile='file') {
+		 
 		$new_file = '';
-		if($_FILES["file"]['name'] !="") {
-			$file_name = $_FILES["file"]['name'];
+		if($_FILES[$getfile]['name'] !="") {
+			$file_name = $_FILES[$getfile]['name'];
 			$random = random19();
 	    	$makeRandom = hash('sha512', $random.(strtotime(date('Y-m-d H:i:s'))). config_item("encryption_key"));
 			$file_name_rename = $makeRandom;
@@ -602,7 +900,7 @@ class User extends Admin_Controller {
 				$config['max_width'] = '10000';
 				$config['max_height'] = '10000';
 				$this->load->library('upload', $config);
-				if(!$this->upload->do_upload("file")) {
+				if(!$this->upload->do_upload($getfile)) {
 					$this->form_validation->set_message("unique_document_upload", $this->upload->display_errors());
 	     			return FALSE;
 				} else {

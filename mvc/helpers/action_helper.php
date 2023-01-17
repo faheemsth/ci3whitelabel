@@ -20,7 +20,7 @@
                     );
         return $arr; 
     }
-
+    
     function escapeString( $val )
     {
         $ci     = &get_instance();
@@ -71,7 +71,7 @@
                 $new_tab    =   '';
             }
             return anchor($uri, "<i class='fa fa-eye'></i>",
-                "class='btn btn-success btn-xs mrg' ".$new_tab." data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "' ");
+                "class='btn btn-success btn-sm mrg' ".$new_tab." data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "' ");
         }
 
         return '';
@@ -87,7 +87,7 @@
     {
         if ( visibleButton($uri) ) {
             return anchor($uri, "<i class='fa fa-edit'></i>",
-                "class='btn btn-warning btn-xs mrg' data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "'");
+                "class='btn btn-warning btn-sm mrg' data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "'");
         }
         return '';
     }
@@ -110,7 +110,7 @@
     function btn_status_show( $uri, $name )
     {
         return anchor($uri, "<i class='fa fa-check'></i>",
-            "class='btn btn-info btn-xs mrg' data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "'");
+            "class='btn btn-info btn-sm mrg' data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "'");
     }
 
     function btn_not_status( $uri, $name )
@@ -134,7 +134,7 @@
             return anchor($uri, "<i class='fa fa-trash'></i>",
                 [
                     'onclick'             => "return confirm('you are about to delete a record. This cannot be undone. are you sure?')",
-                    'class'               => 'btn btn-danger btn-xs mrg',
+                    'class'               => 'btn btn-danger btn-sm mrg',
                     'data-placement'      => 'top',
                     'data-toggle'         => 'tooltip',
                     'data-original-title' => $name
@@ -904,21 +904,27 @@
                         if ( base_url($node['link']) == $current_url ) {
                             $active = 'active';
                         }
-
-                        $menu .= '<li class="' . ( $f ? $treeView : '' ) . $active . '">';
-                        $menu .= anchor($node['link'],
-                            '<i class="fa ' . ( $node['icon'] != null ? $node['icon'] : 'fa-home' ) . '"></i><span>' . ( $CI->lang->line('menu_' . $node['menuName']) != null ? $CI->lang->line('menu_' . $node['menuName']) : $node['menuName'] ) . '</span> ' . ( $f ? $leftIcon : '' ));
-                        if ( $f ) {
-                            $menu .= '<ul class="treeview-menu">';
-                            display_menu($node['child'], $menu);
-                            $menu .= "</ul>";
+                        $subbmmenu  =   '';
+                        $subbmmenu_c  =   '';
+                        if(count($node['child'])){
+                            $subbmmenu  =   ' menu-item menu-accordion ';
+                            $subbmmenu_c  =   ' data-kt-menu-trigger="click" ';
                         }
-                        $menu .= "</li>";
+
+                        $menu .= '<div '. $subbmmenu_c .' class="' . ( $f ? $treeView : '' ) . $active . $subbmmenu . '">';
+                        $menu .= anchor($node['link'],
+                            '<i class="fa ' . ( $node['icon'] != null ? $node['icon'] : 'fa-home' ) . '"></i><span>' . ( $CI->lang->line('menu_' . $node['menuName']) != null ? $CI->lang->line('menu_' . $node['menuName']) : $node['menuName'] ) . '</span> ' . ( $f ? $leftIcon : '' ),array('class' => 'menu-link'));
+                        if ( $f ) {
+                            $menu .= '<div class="menu-sub menu-sub-accordion">';
+                            display_menu($node['child'], $menu);
+                            $menu .= "</div>";
+                        }
+                        $menu .= "</div>";
                     }    
                     //End       
                 }
             }else{
-                $leftIcon = '<i class="fa fa-angle-left pull-right"></i>';
+                $leftIcon = '<span class="menu-arrow"></span>';
 
                 $f = 0;
                 if ( isset($node['child']) ) {
@@ -930,7 +936,7 @@
                         $f    = 0;
                         $node = current($node['child']);
                     }
-                    $treeView = 'menu-item here show menu-accordion';
+                    $treeView = '    ';
                     $active   = '';
 
                     $current_url = current_url();
@@ -958,18 +964,29 @@
 
 
                     if ( base_url($node['link']) == $current_url ) {
-                        $active = 'menu-link';
+                        $active = 'active';
                     }
 
-                    $menu .= '<li class="' . ( $f ? $treeView : '' ) . $active . '">';
+                    
+                        $subbmmenu  =   '';
+                        $subbmmenu_c  =   '';
+                        
+                        if ( $f ) {
+                            if(count($node['child'])){
+                                $subbmmenu  =   'menu-accordion ';
+                                $subbmmenu_c  =   ' data-kt-menu-trigger="click" ';
+                            }
+                        }
+
+                        $menu .= '<div '. $subbmmenu_c .' class="menu-item ' . ( $f ? $treeView : '' ) . $active . $subbmmenu . '">';
                     $menu .= anchor($node['link'],
-                        '<i class="fa ' . ( $node['icon'] != null ? $node['icon'] : 'fa-home' ) . '"></i><span>' . ( $CI->lang->line('menu_' . $node['menuName']) != null ? $CI->lang->line('menu_' . $node['menuName']) : $node['menuName'] ) . '</span> ' . ( $f ? $leftIcon : '' ));
+                        '<i class="fa ' . ( $node['icon'] != null ? $node['icon'] : 'fa-home' ) . '"></i><span class="menu-link">' . ( $CI->lang->line('menu_' . $node['menuName']) != null ? $CI->lang->line('menu_' . $node['menuName']) : $node['menuName'] ) . '</span> ' . ( $f ? $leftIcon : '' ),array('class' => 'menu-link'));
                     if ( $f ) {
-                        $menu .= '<ul class="menu-title">';
-                        display_menu($node['child'], $menu);
-                        $menu .= "</ul>";
+                         $menu .= '<div class="menu-sub menu-sub-accordion">';
+                            display_menu($node['child'], $menu);
+                            $menu .= "</div>";
                     }
-                    $menu .= "</li>";
+                    $menu .= "</div>";
                 }
             }
 
@@ -1655,4 +1672,274 @@
             }
         }
         return $retString;
+    }
+
+         function getCountrys() {
+        $country = array(
+            "AF" => "Afghanistan",
+            "AL" => "Albania",
+            "DZ" => "Algeria",
+            "AS" => "American Samoa",
+            "AD" => "Andorra",
+            "AO" => "Angola",
+            "AI" => "Anguilla",
+            "AQ" => "Antarctica",
+            "AG" => "Antigua and Barbuda",
+            "AR" => "Argentina",
+            "AM" => "Armenia",
+            "AW" => "Aruba",
+            "AU" => "Australia",
+            "AT" => "Austria",
+            "AZ" => "Azerbaijan",
+            "BS" => "Bahamas",
+            "BH" => "Bahrain",
+            "BD" => "Bangladesh",
+            "BB" => "Barbados",
+            "BY" => "Belarus",
+            "BE" => "Belgium",
+            "BZ" => "Belize",
+            "BJ" => "Benin",
+            "BM" => "Bermuda",
+            "BT" => "Bhutan",
+            "BO" => "Bolivia",
+            "BA" => "Bosnia and Herzegovina",
+            "BW" => "Botswana",
+            "BV" => "Bouvet Island",
+            "BR" => "Brazil",
+            "BQ" => "British Antarctic Territory",
+            "IO" => "British Indian Ocean Territory",
+            "VG" => "British Virgin Islands",
+            "BN" => "Brunei",
+            "BG" => "Bulgaria",
+            "BF" => "Burkina Faso",
+            "BI" => "Burundi",
+            "KH" => "Cambodia",
+            "CM" => "Cameroon",
+            "CA" => "Canada",
+            "CT" => "Canton and Enderbury Islands",
+            "CV" => "Cape Verde",
+            "KY" => "Cayman Islands",
+            "CF" => "Central African Republic",
+            "TD" => "Chad",
+            "CL" => "Chile",
+            "CN" => "China",
+            "CX" => "Christmas Island",
+            "CC" => "Cocos [Keeling] Islands",
+            "CO" => "Colombia",
+            "KM" => "Comoros",
+            "CG" => "Congo - Brazzaville",
+            "CD" => "Congo - Kinshasa",
+            "CK" => "Cook Islands",
+            "CR" => "Costa Rica",
+            "HR" => "Croatia",
+            "CU" => "Cuba",
+            "CY" => "Cyprus",
+            "CZ" => "Czech Republic",
+            "CI" => "Côte d’Ivoire",
+            "DK" => "Denmark",
+            "DJ" => "Djibouti",
+            "DM" => "Dominica",
+            "DO" => "Dominican Republic",
+            "NQ" => "Dronning Maud Land",
+            "DD" => "East Germany",
+            "EC" => "Ecuador",
+            "EG" => "Egypt",
+            "SV" => "El Salvador",
+            "GQ" => "Equatorial Guinea",
+            "ER" => "Eritrea",
+            "EE" => "Estonia",
+            "ET" => "Ethiopia",
+            "FK" => "Falkland Islands",
+            "FO" => "Faroe Islands",
+            "FJ" => "Fiji",
+            "FI" => "Finland",
+            "FR" => "France",
+            "GF" => "French Guiana",
+            "PF" => "French Polynesia",
+            "TF" => "French Southern Territories",
+            "FQ" => "French Southern and Antarctic Territories",
+            "GA" => "Gabon",
+            "GM" => "Gambia",
+            "GE" => "Georgia",
+            "DE" => "Germany",
+            "GH" => "Ghana",
+            "GI" => "Gibraltar",
+            "GR" => "Greece",
+            "GL" => "Greenland",
+            "GD" => "Grenada",
+            "GP" => "Guadeloupe",
+            "GU" => "Guam",
+            "GT" => "Guatemala",
+            "GG" => "Guernsey",
+            "GN" => "Guinea",
+            "GW" => "Guinea-Bissau",
+            "GY" => "Guyana",
+            "HT" => "Haiti",
+            "HM" => "Heard Island and McDonald Islands",
+            "HN" => "Honduras",
+            "HK" => "Hong Kong SAR China",
+            "HU" => "Hungary",
+            "IS" => "Iceland",
+            "IN" => "India",
+            "ID" => "Indonesia",
+            "IR" => "Iran",
+            "IQ" => "Iraq",
+            "IE" => "Ireland",
+            "IM" => "Isle of Man",
+            "IL" => "Israel",
+            "IT" => "Italy",
+            "JM" => "Jamaica",
+            "JP" => "Japan",
+            "JE" => "Jersey",
+            "JT" => "Johnston Island",
+            "JO" => "Jordan",
+            "KZ" => "Kazakhstan",
+            "KE" => "Kenya",
+            "KI" => "Kiribati",
+            "KW" => "Kuwait",
+            "KG" => "Kyrgyzstan",
+            "LA" => "Laos",
+            "LV" => "Latvia",
+            "LB" => "Lebanon",
+            "LS" => "Lesotho",
+            "LR" => "Liberia",
+            "LY" => "Libya",
+            "LI" => "Liechtenstein",
+            "LT" => "Lithuania",
+            "LU" => "Luxembourg",
+            "MO" => "Macau SAR China",
+            "MK" => "Macedonia",
+            "MG" => "Madagascar",
+            "MW" => "Malawi",
+            "MY" => "Malaysia",
+            "MV" => "Maldives",
+            "ML" => "Mali",
+            "MT" => "Malta",
+            "MH" => "Marshall Islands",
+            "MQ" => "Martinique",
+            "MR" => "Mauritania",
+            "MU" => "Mauritius",
+            "YT" => "Mayotte",
+            "FX" => "Metropolitan France",
+            "MX" => "Mexico",
+            "FM" => "Micronesia",
+            "MI" => "Midway Islands",
+            "MD" => "Moldova",
+            "MC" => "Monaco",
+            "MN" => "Mongolia",
+            "ME" => "Montenegro",
+            "MS" => "Montserrat",
+            "MA" => "Morocco",
+            "MZ" => "Mozambique",
+            "MM" => "Myanmar [Burma]",
+            "NA" => "Namibia",
+            "NR" => "Nauru",
+            "NP" => "Nepal",
+            "NL" => "Netherlands",
+            "AN" => "Netherlands Antilles",
+            "NT" => "Neutral Zone",
+            "NC" => "New Caledonia",
+            "NZ" => "New Zealand",
+            "NI" => "Nicaragua",
+            "NE" => "Niger",
+            "NG" => "Nigeria",
+            "NU" => "Niue",
+            "NF" => "Norfolk Island",
+            "KP" => "North Korea",
+            "VD" => "North Vietnam",
+            "MP" => "Northern Mariana Islands",
+            "NO" => "Norway",
+            "OM" => "Oman",
+            "PC" => "Pacific Islands Trust Territory",
+            "PK" => "Pakistan",
+            "PW" => "Palau",
+            "PS" => "Palestinian Territories",
+            "PA" => "Panama",
+            "PZ" => "Panama Canal Zone",
+            "PG" => "Papua New Guinea",
+            "PY" => "Paraguay",
+            "YD" => "People's Democratic Republic of Yemen",
+            "PE" => "Peru",
+            "PH" => "Philippines",
+            "PN" => "Pitcairn Islands",
+            "PL" => "Poland",
+            "PT" => "Portugal",
+            "PR" => "Puerto Rico",
+            "QA" => "Qatar",
+            "RO" => "Romania",
+            "RU" => "Russia",
+            "RW" => "Rwanda",
+            "RE" => "Réunion",
+            "BL" => "Saint Barthélemy",
+            "SH" => "Saint Helena",
+            "KN" => "Saint Kitts and Nevis",
+            "LC" => "Saint Lucia",
+            "MF" => "Saint Martin",
+            "PM" => "Saint Pierre and Miquelon",
+            "VC" => "Saint Vincent and the Grenadines",
+            "WS" => "Samoa",
+            "SM" => "San Marino",
+            "SA" => "Saudi Arabia",
+            "SN" => "Senegal",
+            "RS" => "Serbia",
+            "CS" => "Serbia and Montenegro",
+            "SC" => "Seychelles",
+            "SL" => "Sierra Leone",
+            "SG" => "Singapore",
+            "SK" => "Slovakia",
+            "SI" => "Slovenia",
+            "SB" => "Solomon Islands",
+            "SO" => "Somalia",
+            "ZA" => "South Africa",
+            "GS" => "South Georgia and the South Sandwich Islands",
+            "KR" => "South Korea",
+            "ES" => "Spain",
+            "LK" => "Sri Lanka",
+            "SD" => "Sudan",
+            "SR" => "Suriname",
+            "SJ" => "Svalbard and Jan Mayen",
+            "SZ" => "Swaziland",
+            "SE" => "Sweden",
+            "CH" => "Switzerland",
+            "SY" => "Syria",
+            "ST" => "São Tomé and Príncipe",
+            "TW" => "Taiwan",
+            "TJ" => "Tajikistan",
+            "TZ" => "Tanzania",
+            "TH" => "Thailand",
+            "TL" => "Timor-Leste",
+            "TG" => "Togo",
+            "TK" => "Tokelau",
+            "TO" => "Tonga",
+            "TT" => "Trinidad and Tobago",
+            "TN" => "Tunisia",
+            "TR" => "Turkey",
+            "TM" => "Turkmenistan",
+            "TC" => "Turks and Caicos Islands",
+            "TV" => "Tuvalu",
+            "UM" => "U.S. Minor Outlying Islands",
+            "PU" => "U.S. Miscellaneous Pacific Islands",
+            "VI" => "U.S. Virgin Islands",
+            "UG" => "Uganda",
+            "UA" => "Ukraine",
+            "SU" => "Union of Soviet Socialist Republics",
+            "AE" => "United Arab Emirates",
+            "GB" => "United Kingdom",
+            "US" => "United States",
+            "ZZ" => "Unknown or Invalid Region",
+            "UY" => "Uruguay",
+            "UZ" => "Uzbekistan",
+            "VU" => "Vanuatu",
+            "VA" => "Vatican City",
+            "VE" => "Venezuela",
+            "VN" => "Vietnam",
+            "WK" => "Wake Island",
+            "WF" => "Wallis and Futuna",
+            "EH" => "Western Sahara",
+            "YE" => "Yemen",
+            "ZM" => "Zambia",
+            "ZW" => "Zimbabwe",
+            "AX" => "Åland Islands",
+            );
+        return $country;
     }

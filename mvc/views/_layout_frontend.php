@@ -12,24 +12,10 @@
 									<!--begin::Page title-->
 									<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
 										<!--begin::Title-->
-										<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">SUP</h1>
+										<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Society of Ultrasound In Pakistan</h1>
 										<!--end::Title-->
 										<!--begin::Breadcrumb-->
-										<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
-											<!--begin::Item-->
-											<li class="breadcrumb-item text-muted">
-												<a href="index.html" class="text-muted text-hover-primary">Home</a>
-											</li>
-											<!--end::Item-->
-											<!--begin::Item-->
-											<li class="breadcrumb-item">
-												<span class="bullet bg-gray-400 w-5px h-2px"></span>
-											</li>
-											<!--end::Item-->
-											<!--begin::Item-->
-											<li class="breadcrumb-item text-muted">Dashboard</li>
-											<!--end::Item-->
-										</ul>
+										
 										<!--end::Breadcrumb-->
 									</div>
 									<!--end::Page title-->
@@ -51,7 +37,7 @@
 											<!--begin::Engage widget 10-->
 											<div class="card card-flush h-md-100">
 												<!--begin::Body-->
-												<div class="card-body d-flex flex-column justify-content-between mt-9 bgi-no-repeat bgi-size-cover bgi-position-x-center pb-0" style="background-position: 100% 50%; background-image:url('assets/media/stock/900x600/42.png')">
+												<div class="card-body mt-0 d-flex flex-column justify-content-between bgi-no-repeat bgi-size-cover bgi-position-x-center pb-0" style="background-position: 100% 50%; background-image:url('assets/media/stock/900x600/42.png')">
 													<!--begin::Wrapper-->
 													<?php $this->load->view($subview); ?>
 													<!--begin::Wrapper-->

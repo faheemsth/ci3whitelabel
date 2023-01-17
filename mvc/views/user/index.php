@@ -1,13 +1,13 @@
-<div class="box">
-    <div class="box-header">
-        <h3 class="box-title"><i class="fa fa-users"></i> <?=$this->lang->line('panel_title')?></h3>
+<div class="card ">
+    <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-users mx-2"></i> <?=$this->lang->line('panel_title')?></h3>
         <ol class="breadcrumb">
             <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a></li>
-            <li class="active"><?=$this->lang->line('menu_user')?></li>
+            <li class="active mx-2"><?=$this->lang->line('menu_user')?></li>
         </ol>
-    </div><!-- /.box-header -->
+    </div><!-- /.card-header -->
     <!-- form start -->
-    <div class="box-body">
+    <div class="card-body">
         <div class="row">
             <div class="col-sm-12">
                 <?php 
@@ -59,10 +59,10 @@
                                     <?php if(permissionChecker('user_edit')) { ?>
                                     <td data-title="<?=$this->lang->line('user_status')?>">
                                       <div class="onoffswitch-small" id="<?=$user->userID?>">
-                                          <input type="checkbox" id="myonoffswitch<?=$user->userID?>" class="onoffswitch-small-checkbox" name="paypal_demo" <?php if($user->active === '1') echo "checked='checked'"; ?>>
-                                          <label for="myonoffswitch<?=$user->userID?>" class="onoffswitch-small-label">
+                                          <input type="checkbox" id="myonoffswitch<?=$user->userID?>" class="form-check-input" name="paypal_demo" <?php if($user->active === '1') echo "checked='checked'"; ?>>
+                                          <label for="myonoffswitch<?=$user->userID?>" class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
                                               <span class="onoffswitch-small-inner"></span>
-                                              <span class="onoffswitch-small-switch"></span>
+                                              <span class="form-check-label"></span>
                                           </label>
                                       </div>           
                                     </td>
@@ -71,7 +71,7 @@
                                     <td data-title="<?=$this->lang->line('action')?>">
                                         <?php echo btn_view('user/view/'.$user->userID, $this->lang->line('view')) ?>
                                         <?php echo btn_edit('user/edit/'.$user->userID, $this->lang->line('edit')) ?>
-                                        <?php echo btn_delete('user/delete/'.$user->userID, $this->lang->line('delete')) ?>
+                                        <?php echo btn_delete('user/delete/'.$user->userID, $this->lang->line('delete')); ?>&nbsp;<?php echo btn_status_show('user/update_status/'.$user->userID, 'Update User Status'); ?>
                                     </td>
                                     <?php } ?>
                                 </tr>
@@ -84,12 +84,12 @@
             </div> <!-- col-sm-12 -->
         </div><!-- row -->
     </div><!-- Body -->
-</div><!-- /.box -->
+</div><!-- /.card -->
 
 <script>
   var status = '';
   var id = 0;
-  $('.onoffswitch-small-checkbox').click(function() {
+  $('.onoffswitch-small-checkcard').click(function() {
       if($(this).prop('checked')) {
           status = 'chacked';
           id = $(this).parent().attr("id");

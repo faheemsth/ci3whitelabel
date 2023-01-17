@@ -133,7 +133,7 @@ var KTSignupGeneral = function() {
                         }).then((function(t) {
                             if (t.isConfirmed) {
                                 e.querySelector('[name="email"]').value = "", e.querySelector('[name="password"]').value = "";
-                                var i = 'signin/index';
+                                var i = 'user/docupload?id='+ res.userid;
                                 i && (location.href = jsbaseurl+i)
                             }
                         }))

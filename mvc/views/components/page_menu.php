@@ -5,9 +5,9 @@
 <!--begin::Logo-->
 <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
 <!--begin::Logo image-->
-<a href="index.html">
-    <img alt="Logo" src="<?php echo base_url('assets/frontend/media/logos/whiteic.png')?>" class="h-50px app-sidebar-logo-default" />
-    <img alt="Logo" src="<?php echo base_url('assets/frontend/media/logos/whiteic.png')?>" class="h-20px app-sidebar-logo-minimize" />
+<a href="<?php echo base_url() ?>dashboard ">
+    <img alt="Logo" src="<?php echo base_url('assets/frontend/media/logos/supwhiteonly.png')?>" class="h-50px app-sidebar-logo-default" />
+    <img alt="Logo" src="<?php echo base_url('assets/frontend/media/logos/supwhiteonly.png')?>" class="h-20px app-sidebar-logo-minimize" />
 </a>
 <!--end::Logo image-->
 <!--begin::Sidebar toggle-->
@@ -31,7 +31,7 @@
     <!--begin::Menu-->
     <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
         <!--begin:Menu item-->
-      <ul class="menu-title">
+       
            <?php
                         if(customCompute($dbMenus)) {
                             $menuDesign = '';
@@ -39,7 +39,7 @@
                             echo $menuDesign;
                         }
                     ?>
-      </ul>
+       
         <!--end:Menu item-->
         <!--begin:Menu item-->
          

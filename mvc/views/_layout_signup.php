@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <title>ICAAHS</title>
-    <link rel="shortcut icon" href="https://icaahs.smarttechnologyhouse.net/wp-content/uploads/2022/08/cropped-android-chrome-512x512-1-180x180.png" />
+    <title>Society of Ultrasound in Pakistan</title>
+    <link rel="shortcut icon" href="<?php echo base_url('assets/frontend/media/logos/suplogo.png')?>" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -37,12 +37,12 @@
                     <div class="d-flex flex-center flex-lg-start flex-column">
                         <!--begin::Logo-->
                         <a href="#" class="mb-7">
-                            <img alt="Logo" src="<?php echo base_url('assets/frontend/media/logos/whiteic.png')?>" class="h-85px" />
+                            <img alt="Logo" src="<?php echo base_url('assets/frontend/media/logos/supwhite.png')?>" class="h-100px" style="margin: -124px !important;" />
+                            
                         </a>
                         <!--end::Logo-->
                         <!--begin::Title-->
-                        <h2 class="text-white fw-normal m-0">Society of Ultrasound in Pakistan
-                        </h2>
+                        
                         <!--end::Title-->
                     </div>
                     <!--begin::Aside-->
@@ -51,7 +51,7 @@
                 <!--begin::Body-->
                 <div class="d-flex flex-center w-lg-50 p-10">
                     <!--begin::Card-->
-                    <div class="card rounded-3 w-md-550px">
+                    <div class="card rounded-3 w-md-750px">
                         <!--begin::Card body-->
                         <div class="card-body p-10 p-lg-20">
                             <?php $this->load->view($subview); ?>
@@ -75,7 +75,8 @@
         <script src="<?php echo base_url('assets/frontend/js/custom/authentication/sign-up/general.js')?>"></script>
         <!--end::Custom Javascript-->
         <script src="<?php echo base_url('assets/frontend/js/custom/authentication/sign-in/general.js')?>"></script>
-        <script src="<?php echo base_url('assets/frontend/js/custom/authentication/registraion/general.js')?>"></script>
+        <!-- <script src="<?php echo base_url('assets/frontend/js/custom/authentication/registraion/general.js')?>"></script> -->
+        <script src="<?php echo base_url('assets/frontend/js/custom/authentication/sign-up/upload_docs.js')?>"></script>
         <script src="<?php echo base_url('assets/frontend/js/custom/authentication/reset-password/reset-password.js')?>"></script>
 
         <!--end::Javascript-->

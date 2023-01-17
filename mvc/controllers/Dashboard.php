@@ -36,6 +36,7 @@
             $this->load->model('holiday_m');  
             $this->load->model('make_payment_m');
             $this->load->model('maininvoice_m'); 
+            $this->load->model('usermeta_m'); 
             $language = $this->session->userdata('lang');
             $this->lang->load('dashboard', $language);
             $this->_automation();
@@ -694,6 +695,7 @@
                 $this->data['user'] = $this->parents_m->get_single_parents([ 'parentsID' => $loginUserID ]);
             } else {
                 $this->data['user'] = $this->user_m->get_single_user([ 'userID' => $loginUserID ]);
+                $this->data['reason'] = $this->usermeta_m->get_order_by_usermeta([ 'userID' => $loginUserID ]);
             }
         }
 

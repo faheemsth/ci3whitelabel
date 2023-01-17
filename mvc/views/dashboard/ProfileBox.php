@@ -1,5 +1,5 @@
       <?php if(customCompute($user)) { ?>
-        <section class="panel">
+        <section class="panel bg-light-success p-6">
           <div class="profile-db-head bg-maroon-light">
             <a href="<?=base_url('profile/index')?>">
               <?=img(imagelink($user->photo));?>
@@ -13,7 +13,7 @@
               <tbody>
                   <tr>
                     <td>
-                      <i class="glyphicon glyphicon-user text-maroon-light" ></i>
+                      <i class="fa fa-user text-maroon-light" ></i>
                     </td>
                     <td><?=$this->lang->line('dashboard_username')?></td>
                     <td><?=$user->username?></td>
@@ -38,6 +38,28 @@
                     </td>
                     <td><?=$this->lang->line('dashboard_address')?></td>
                     <td><?=$user->address?></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <i class=" fa fa-check text-maroon-light"></i>
+                    </td>
+                    <td>Status (Current)</td>
+                    <td><?php $status= get_status_type();
+                    echo $status[$user->active]; 
+                  ?><hr>
+                  <?php 
+                  foreach($reason as $r)
+                  {
+                    $valuit=  $r->meta_value;
+                  $myarray = unserialize($valuit);
+                  echo $status[$myarray['status']];
+                  echo ': ';
+                  echo $myarray['reason'];
+                  echo '<hr>';
+                  }
+                  
+                 ?>
+                    </td>
                   </tr>
               </tbody>
           </table>
