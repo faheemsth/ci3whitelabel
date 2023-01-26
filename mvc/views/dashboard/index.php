@@ -196,7 +196,7 @@
 
 <?php if($getActiveUserID == 1 || $getActiveUserID == 5) { ?>
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <?php $this->load->view('dashboard/ProfileBox'); ?>
         </div>
         <div class="col-sm-8">
@@ -224,7 +224,7 @@
     </div>
 <?php } else { ?>
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <?php $this->load->view('dashboard/ProfileBox'); ?>
         </div>
         <?php if(permissionChecker('notice')) { ?>

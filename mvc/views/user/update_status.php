@@ -45,16 +45,38 @@
                         <div class="col-sm-6">
                             <?php 
                                 $bloodArray =  get_status_type();
-                                echo form_dropdown("active", $bloodArray, set_value("active"), "id='active' class='form-control bg-transparent select2'"); 
+                                echo form_dropdown("active", $bloodArray, set_value("active",$user->status), " id='active' class='form-control bg-transparent'  "); 
                             ?>
                         </div>
                         <span class="col-sm-4 control-label">
                             <?php echo form_error('active'); ?>
                         </span>
                     </div>
-
+                    <?php 
                     
-
+                        if(form_error('membertype')) 
+                            echo "<div id='membertypediv' class='form-group mb-7 has-error' >";
+                        else     
+                            echo "<div  id='membertypediv'  class='form-group mb-7' >";
+                    ?>
+                        <label for="bloodgroup" class="col-sm-2 control-label">
+                            Member Type <span class="text-red">*</span>
+                        </label>
+                        <div class="col-sm-6">
+                            <select id="membertype" class="form-control form-select"   name="membertype" data-control="select2" data-placeholder="Select Member Type" >
+                            <option>Please Select member type</option>
+                            <?php 
+                            foreach ($regtype as $r) {
+                                $tenure12= get_tenure();?>
+                            <option value="<?php echo $r->regtypeID;?>"><?php echo $r->regtype.'-'.$tenure12[$r->tenure].'-'.$r->amount;?></option>
+                            <?php }?>
+                            </select>
+                        </div>
+                        <span class="col-sm-4 control-label">
+                            <?php echo form_error('membertype'); ?>
+                        </span>
+                    </div>
+                    
                     <div class="form-group mb-7">
                         <div class="col-sm-offset-2 col-sm-8">
                             <input type="submit" class="btn btn-success" value="Update Status" >
@@ -69,102 +91,29 @@
 </div><!-- /.card -->
 
 <script type="text/javascript">
-$( ".select2" ).select2();
-$('#dob').datepicker({ startView: 2 });
 
-$('#username').keyup(function() {
-    $(this).val($(this).val().replace(/\s/g, ''));
-});
 
-$('#classesID').change(function(event) {
-    var classesID = $(this).val();
-    if(classesID === '0') {
-        $('#classesID').val(0);
-    } else {
-        $.ajax({
-            type: 'POST',
-            url: "<?=base_url('student/sectioncall')?>",
-            data: "id=" + classesID,
-            dataType: "html",
-            success: function(data) {
-               $('#sectionID').html(data);
-            }
-        });
 
-        $.ajax({
-            type: 'POST',
-            url: "<?=base_url('student/optionalsubjectcall')?>",
-            data: "id=" + classesID,
-            dataType: "html",
-            success: function(data2) {
-                $('#optionalSubjectID').html(data2);
-            }
-        });
-    }
-});
-
-$(document).on('click', '#close-preview', function(){ 
-    $('.image-preview').popover('hide');
-    // Hover befor close the preview
-    $('.image-preview').hover(
-        function () {
-           $('.image-preview').popover('show');
-           $('.content').css('padding-bottom', '130px');
-        }, 
-         function () {
-           $('.image-preview').popover('hide');
-           $('.content').css('padding-bottom', '20px');
+    $(document).on('change', "#active", function() {
+         
+        var active = $(this).val();
+         
+        if(active == '1'){
+            $("#membertypediv").show('slow'); 
+        } else {
+            $("#membertypediv").hide('slow'); 
         }
-    );    
-});
 
-$(function() {
-    // Create the close button
-    var closebtn = $('<button/>', {
-        type:"button",
-        text: 'x',
-        id: 'close-preview',
-        style: 'font-size: initial;',
+         
     });
-    closebtn.attr("class","close pull-right");
-    // Set the popover default content
-    $('.image-preview').popover({
-        trigger:'manual',
-        html:true,
-        title: "<strong>Preview</strong>"+$(closebtn)[0].outerHTML,
-        content: "There's no image",
-        placement:'bottom'
-    });
-    // Clear event
-    $('.image-preview-clear').click(function(){
-        $('.image-preview').attr("data-content","").popover('hide');
-        $('.image-preview-filename').val("");
-        $('.image-preview-clear').hide();
-        $('.image-preview-input input:file').val("");
-        $(".image-preview-input-title").text("<?=$this->lang->line('student_file_browse')?>"); 
-    }); 
-    // Create the preview image
-    $(".image-preview-input input:file").change(function (){     
-        var img = $('<img/>', {
-            id: 'dynamic',
-            width:250,
-            height:200,
-            overflow:'hidden'
-        });      
-        var file = this.files[0];
-        var reader = new FileReader();
-        // Set preview image into the popover data-content
-        reader.onload = function (e) {
-            $(".image-preview-input-title").text("<?=$this->lang->line('student_file_browse')?>");
-            $(".image-preview-clear").show();
-            $(".image-preview-filename").val(file.name);            
-            img.attr('src', e.target.result);
-            $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
-            $('.content').css('padding-bottom', '130px');
-        }        
-        reader.readAsDataURL(file);
-    });  
+    $(document).ready(function(){
+    var active = $('#active').val();
+         
+         
+        if(active == '1'){
+            $("#membertypediv").show('slow'); 
+        } else {
+            $("#membertypediv").hide(500); 
+        }
 });
-
-
 </script>

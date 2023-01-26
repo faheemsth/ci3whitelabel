@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Regtype extends Admin_Controller {
+class Membertype extends Admin_Controller {
     /*
     | -----------------------------------------------------
     | PRODUCT NAME: 	INILABS SCHOOL MANAGEMENT SYSTEM
@@ -16,25 +16,24 @@ class Regtype extends Admin_Controller {
     */
     function __construct() {
         parent::__construct();
-        $this->load->model("regtype_m");
+        $this->load->model("membertype_m");
         $language = $this->session->userdata('lang');
         $this->lang->load('membertype', $language);
     }
 
     public function index() {
-        $this->data['regtypes'] = $this->regtype_m->get_regtype();
-        $this->data["subview"] = "/regtype/index";
+        $this->data['membertypes'] = $this->membertype_m->get_membertype();
+        $this->data["subview"] = "/membertype/index";
         $this->load->view('_layout_main', $this->data);
     }
 
     protected function rules() {
         $rules = array(
             array(
-                'field' => 'regtype',
-                'label' => $this->lang->line("regtype_title"),
+                'field' => 'membertype',
+                'label' => $this->lang->line("membertype_title"),
                 'rules' => 'trim|required|xss_clean|max_length[128]'
             ),
-            
             array(
                 'field' => 'amount',
                 'label' => 'Amount',
@@ -59,21 +58,19 @@ class Regtype extends Admin_Controller {
             $rules = $this->rules();
             $this->form_validation->set_rules($rules);
             if ($this->form_validation->run() == FALSE) {
-                $this->data["subview"] = "/regtype/add";
+                $this->data["subview"] = "/membertype/add";
                 $this->load->view('_layout_main', $this->data);
             } else {
                  $array = array(
-                            "regtype"       => $this->input->post("regtype"),
-                            "amount_type"    => $this->input->post("amount_type"),
-                            "amount"    => $this->input->post("amount"),
-                            "tenure"    => $this->input->post("tenure"),
+                            "membertype"       => $this->input->post("membertype"),
+                            "amount"    => $this->input->post("amount")
                         );
-                $this->regtype_m->insert_regtype($array);
-                $this->session->set_flashdata('success', 'Member Type Added');
-                redirect(base_url("regtype/index"));
+                $this->membertype_m->insert_membertype($array);
+                $this->session->set_flashdata('success', $this->lang->line('menu_success'));
+                redirect(base_url("membertype/index"));
             }
         } else {
-            $this->data["subview"] = "/regtype/add";
+            $this->data["subview"] = "/membertype/add";
             $this->load->view('_layout_main', $this->data);
         }
     }
@@ -91,28 +88,27 @@ class Regtype extends Admin_Controller {
         );
         $id = htmlentities(escapeString($this->uri->segment(3)));
         if((int)$id) {
-            $this->data['regtype'] = $this->regtype_m->get_single_regtype(array('regtypeID' => $id));
-            if($this->data['regtype']) {
+            $this->data['membertype'] = $this->membertype_m->get_single_membertype(array('membertypeID' => $id));
+            if($this->data['membertype']) {
                 if($_POST) {
-                   
                     $rules = $this->rules();
                     $this->form_validation->set_rules($rules);
                     if ($this->form_validation->run() == FALSE) {
-                        $this->data["subview"] = "/regtype/edit";
+                        $this->data["subview"] = "/membertype/edit";
                         $this->load->view('_layout_main', $this->data);
                     } else {
                         $array = array(
-                            "regtype"       => $this->input->post("regtype"),
-                            "amount"    => $this->input->post("amount"),
-                            "tenure"    => $this->input->post("tenure"),
+                            "membertype"       => $this->input->post("membertype"),
+                            "amount_type"    => $this->input->post("amount_type"),
+                            "amount"    => $this->input->post("amount")
                         );
 
-                        $this->regtype_m->update_regtype($array, $id);
-                        $this->session->set_flashdata('success', "Member Type Updated");
-                        redirect(base_url("regtype/index"));
+                        $this->membertype_m->update_membertype($array, $id);
+                        $this->session->set_flashdata('success', $this->lang->line('menu_success'));
+                        redirect(base_url("membertype/index"));
                     }
                 } else {
-                    $this->data["subview"] = "/regtype/edit";
+                    $this->data["subview"] = "/membertype/edit";
                     $this->load->view('_layout_main', $this->data);
                 }
             } else {
@@ -128,9 +124,9 @@ class Regtype extends Admin_Controller {
     public function view() {
         $id = htmlentities(escapeString($this->uri->segment(3)));
         if((int)$id) {
-            $this->data['regtype'] = $this->regtype_m->get_single_regtype(array('regtypeID' => $id));
-            if($this->data['regtype']) {
-                $this->data["subview"] = "/regtype/view";
+            $this->data['membertype'] = $this->membertype_m->get_single_membertype(array('membertypeID' => $id));
+            if($this->data['membertype']) {
+                $this->data["subview"] = "/membertype/view";
                 $this->load->view('_layout_main', $this->data);
             } else {
                 $this->data["subview"] = "error";
@@ -145,26 +141,26 @@ class Regtype extends Admin_Controller {
     public function delete() {
         $id = htmlentities(escapeString($this->uri->segment(3)));
         if((int)$id) {
-            $this->data['regtype'] = $this->regtype_m->get_single_regtype(array('regtypeID' => $id));
-            if(count($this->data['regtype'])) {
-                $this->regtype_m->delete_regtype($id);
+            $this->data['membertype'] = $this->membertype_m->get_single_membertype(array('membertypeID' => $id));
+            if(count($this->data['membertype'])) {
+                $this->membertype_m->delete_membertype($id);
                 $this->session->set_flashdata('success', $this->lang->line('menu_success'));
-                redirect(base_url("regtype/index"));
+                redirect(base_url("membertype/index"));
             } else {
-                redirect(base_url("regtype/index"));
+                redirect(base_url("membertype/index"));
             }
         } else {
-            redirect(base_url("regtype/index"));
+            redirect(base_url("membertype/index"));
         }
     }
 
     public function print_preview() {
         $id = htmlentities(escapeString($this->uri->segment(3)));
         if((int)$id) {
-            $this->data['regtype'] = $this->regtype_m->get_single_regtype(array('regtypeID' => $id));
-            if($this->data['regtype']) {
+            $this->data['membertype'] = $this->membertype_m->get_single_membertype(array('membertypeID' => $id));
+            if($this->data['membertype']) {
                 $this->data['panel_title'] = $this->lang->line('panel_title');
-                $this->reportPDF($this->data, '/regtype/print_preview');
+                $this->reportPDF($this->data, '/membertype/print_preview');
             } else {
                 $this->data["subview"] = "error";
                 $this->load->view('_layout_main', $this->data);
@@ -177,13 +173,13 @@ class Regtype extends Admin_Controller {
     public function send_mail() {
         $id = $this->input->post('id');
         if ((int)$id) {
-            $this->data['regtype'] = $this->regtype_m->get_single_regtype(array('regtypeID' => $id));
-            if($this->data['regtype']) {
+            $this->data['membertype'] = $this->membertype_m->get_single_membertype(array('membertypeID' => $id));
+            if($this->data['membertype']) {
                 $email = $this->input->post('to');
                 $subject = $this->input->post('subject');
                 $message = $this->input->post('message');
 
-                $this->reportSendToMail($this->data['regtype'], '/regtype/print_preview', $email, $subject, $message);
+                $this->reportSendToMail($this->data['membertype'], '/membertype/print_preview', $email, $subject, $message);
             } else {
                 $this->data["subview"] = "error";
                 $this->load->view('_layout_main', $this->data);

@@ -6,6 +6,13 @@ var validator = FormValidation.formValidation(
     form1,
     {
         fields: {
+                    photo: {
+                        validators: {
+                            notEmpty: {
+                                message: "Profile Picture is required"
+                            }
+                        }
+                    },
                     id_front_file: {
                         validators: {
                             notEmpty: {
@@ -27,7 +34,7 @@ var validator = FormValidation.formValidation(
                             }
                         }
                     },
-                    matirc_file: {
+                    matric_file: {
                         validators: {
                             notEmpty: {
                                 message: "Matric File is required"
@@ -72,38 +79,11 @@ var validator = FormValidation.formValidation(
                     postgraduate_file: {
                         validators: {
                             notEmpty: {
-                                message: "Postgraduate File is required"
+                                message: "PG/Certificate/Degree is required"
                             }
                         }
                     },
-                    passing_year_phd: {
-                        validators: {
-                            notEmpty: {
-                                message: "Passing Year required"
-                            }
-                        }
-                    },
-                    phd_file: {
-                        validators: {
-                            notEmpty: {
-                                message: "PhD File is required"
-                            }
-                        }
-                    },
-                    passing_year_pmdc: {
-                        validators: {
-                            notEmpty: {
-                                message: "Passing Year required"
-                            }
-                        }
-                    },
-                    pmdc_file: {
-                        validators: {
-                            notEmpty: {
-                                message: "PMDC File is required"
-                            }
-                        }
-                    },
+                   
                    
                 },
 

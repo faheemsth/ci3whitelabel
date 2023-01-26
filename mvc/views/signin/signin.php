@@ -14,10 +14,18 @@
 		<!--end::Email-->
 	</div>
 	<!--end::Input group=-->
-	<div class="fv-row mb-3">
+	<div class="fv-row mb-3"  data-kt-password-meter="true">
 		<!--begin::Password-->
 		<input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control bg-transparent">
 		<!--end::Password-->
+		    <!--begin::Visibility toggle-->
+            <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                data-kt-password-meter-control="visibility">
+                <i class="fa fa-eye-slash fs-2"></i>
+
+                <i class="fa fa-eye fs-2 d-none"></i>
+            </span>
+            <!--end::Visibility toggle-->
 	</div>
 	<!--end::Input group=-->
 	<!--begin::Wrapper-->

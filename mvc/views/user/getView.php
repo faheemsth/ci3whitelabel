@@ -21,33 +21,30 @@
         <div class="col-sm-3">
             <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <?=profileviewimage($profile->photo)?>
+                   <?=profileimage($profile->photo)?>
                     <h3 class="profile-username text-center"><?=$profile->name?></h3>
                     <p class="text-muted text-center"><?=isset($usertypes[$profile->usertypeID]) ? $usertypes[$profile->usertypeID] : ''?></p>
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item" style="background-color: #FFF">
-                            <b><?=$this->lang->line('user_sex')?></b> <a class="pull-right"><?=$profile->sex?></a>
+                            <b><?=$this->lang->line('user_sex')?>: </b> <a class="pull-right"><?=$profile->sex?></a>
                         </li>
                         <li class="list-group-item" style="background-color: #FFF">
-                            <b><?=$this->lang->line('user_dob')?></b> <a class="pull-right"><?=date('d M Y',strtotime($profile->dob))?></a>
+                            <b><?=$this->lang->line('user_phone')?>: </b> <a class="pull-right"><?=$profile->phone?></a>
                         </li>
                         <li class="list-group-item" style="background-color: #FFF">
-                            <b><?=$this->lang->line('user_phone')?></b> <a class="pull-right"><?=$profile->phone?></a>
-                        </li>
-                        <li class="list-group-item" style="background-color: #FFF">
-                            <b><span><?=$this->lang->line("user_jod")?> </span> </b> <a class="pull-right"><?=date("d M Y", strtotime($profile->jod))?></a>
-                        </li>
-                        <li class="list-group-item" style="background-color: #FFF">
-                            <b><span><?=$this->lang->line("user_religion")?> </span> </b> <a class="pull-right"><?=$profile->religion?></a>
+                            <b><span><?=$this->lang->line("user_jod")?> </span> : </b> <a class="pull-right"><?=date("d M Y", strtotime($profile->jod))?></a>
                         </li>
                          <li class="list-group-item" style="background-color: #FFF">
-                            <b><span><?=$this->lang->line("user_email")?> </span> </b> <a class="pull-right"><?=$profile->email?></a>
+                            <b><span><?=$this->lang->line("user_email")?> </span> : </b> <a class="pull-right"><?=$profile->email?></a>
                         </li>
                         <li class="list-group-item" style="background-color: #FFF">
-                            <b><span><?=$this->lang->line("user_address")?> </span> </b> <a class="pull-right"><?=$profile->address?></a>
+                            <b><span><?=$this->lang->line("user_address")?>  :</span> </b> <a class="pull-right"><?=$profile->address?></a>
                         </li>
                         <li class="list-group-item" style="background-color: #FFF">
-                            <b><span><?=$this->lang->line("user_username")?> </span> </b> <a class="pull-right"><?=$profile->username?></a>
+                            <b><span>Clinic Address:  </span> </b> <a class="pull-right"><?=$profile->clinic_address?></a>
+                        </li>
+                        <li class="list-group-item" style="background-color: #FFF">
+                            <b><span>City  :</span> </b> <a class="pull-right"><?=$profile->city?></a>
                         </li>
                     </ul>
                 </div>
@@ -69,7 +66,7 @@
                             <div id="hide-table">
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
-                                        <tr>
+                                        <tr class="fw-bold fs-6 text-gray-800 px-7">
                                             <th><?=$this->lang->line('slno')?></th>
                                             <th><?=$this->lang->line('user_title')?></th>
                                             <th>Passing Year</th>

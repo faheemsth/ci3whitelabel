@@ -18,10 +18,36 @@
                             <?=$this->lang->line("regtype_title")?> <span class="text-red">*</span>
                         </label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control bg-transparent" id="title" name="title" value="I am the title">
+                            <input type="text" class="form-control bg-transparent" id="title" name="regtype" value="<?= $regtype->regtype ?>">
                         </div>
                         <span class="col-sm-4 control-label">
                             <?php echo form_error('title'); ?>
+                        </span>
+                    </div>
+                    <div class="form-group mb-7 <?=form_error('title') ? 'has-error' : '' ?>" >
+                                            <label for="title" class="col-sm-2 control-label">
+                                                Amount <span class="text-red">*</span>
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control bg-transparent" id="amount" name="amount" value="<?= $regtype->amount ?>">
+                                            </div>
+                                            <span class="col-sm-4 control-label">
+                                                <?php echo form_error('amount'); ?>
+                                            </span>
+                                        </div>
+                         <div class="form-group mb-7 <?=form_error('title') ? 'has-error' : '' ?>" >
+                        <label for="title" class="col-sm-2 control-label">
+                            Amount <span class="text-red">*</span>
+                        </label>
+                        <div class="col-sm-6">
+                           <?php 
+
+                                $bloodArray =  get_tenure();
+                                echo form_dropdown("tenure", $bloodArray, set_value("tenure",$regtype->tenure), "id='tenure' class='form-control bg-transparent' data-control='select2'"); 
+                            ?>
+                        </div>
+                        <span class="col-sm-4 control-label">
+                            <?php echo form_error('amount'); ?>
                         </span>
                     </div>
 

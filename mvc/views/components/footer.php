@@ -83,6 +83,73 @@
 	<script src="<?php echo base_url('assets/frontend/js/custom/utilities/modals/create-app.js')?>"></script>
 	<script src="<?php echo base_url('assets/frontend/js/custom/utilities/modals/new-target.js')?>"></script>
 	<script src="<?php echo base_url('assets/frontend/js/custom/utilities/modals/users-search.js')?>"></script>
+	        <?php if ($this->session->flashdata('success')): ?>
+            <script type="text/javascript">
+              
+              toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toastr-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+};
+
+toastr.success("<?=$this->session->flashdata('success');?>", "Success");
+            </script>
+        <?php endif ?>
+        <?php if ($this->session->flashdata('error')): ?>
+            <script type="text/javascript">
+              
+              toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toastr-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+};
+
+toastr.error("<?=$this->session->flashdata('error');?>", "Error");
+            </script>
+        <?php endif ?>
+	<script type="text/javascript">
+		$("#kt_datatable_dom_positioning").DataTable({
+	"language": {
+		"lengthMenu": "Show _MENU_",
+	},
+	"dom":
+		"<'row'" +
+		"<'col-sm-6 d-flex align-items-center justify-conten-start'l>" +
+		"<'col-sm-6 d-flex align-items-center justify-content-end'f>" +
+		">" +
+
+		"<'table-responsive'tr>" +
+
+		"<'row'" +
+		"<'col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'i>" +
+		"<'col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end'p>" +
+		">"
+});
+	</script>
 	<!--end::Custom Javascript-->
 	<!--end::Javascript-->
 	</body>

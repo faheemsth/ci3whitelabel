@@ -39,13 +39,7 @@ var KTSignupGeneral = function() {
                             }
                         }
                     },
-                    martial_status: {
-                        validators: {
-                            notEmpty: {
-                                message: "Select Martial Status"
-                            }
-                        }
-                    },
+                    
                     current_job: {
                         validators: {
                             notEmpty: {
@@ -67,10 +61,24 @@ var KTSignupGeneral = function() {
                             }
                         }
                     },
+                    city: {
+                        validators: {
+                            notEmpty: {
+                                message: "City is Required"
+                            }
+                        }
+                    },
                     address: {
                         validators: {
                             notEmpty: {
                                 message: "Address is required"
+                            }
+                        }
+                    },
+                    address: {
+                        validators: {
+                            notEmpty: {
+                                message: "Clinic Address is required"
                             }
                         }
                     },
@@ -90,7 +98,7 @@ var KTSignupGeneral = function() {
                     toc: {
                         validators: {
                             notEmpty: {
-                                message: "You must accept the terms and conditions"
+                                message: "Please accept the terms and conditions"
                             }
                         }
                     }
@@ -113,8 +121,7 @@ var KTSignupGeneral = function() {
                         t.removeAttribute("data-kt-indicator"), t.disabled = !1, $.ajax({
                         type: 'POST',
                         url: "register",
-                        data: {"name" : e.querySelector('[name="name"]').value,"sex" : e.querySelector('[name="sex"]').value, "phone" : e.querySelector('[name="phone"]').value, "email" : e.querySelector('[name="email"]').value, "martial_status" : e.querySelector('[name="martial_status"]').value, "current_job" : e.querySelector('[name="current_job"]').value, "country" : e.querySelector('[name="country"]').value, "province" : e.querySelector('[name="province"]').value, "address" : e.querySelector('[name="address"]').value,"password" : e.querySelector('[name="password"]').value},
-                        dataType: "json",
+                        data: {"name" : e.querySelector('[name="name"]').value,"sex" : e.querySelector('[name="sex"]').value, "phone" : e.querySelector('[name="phone"]').value, "email" : e.querySelector('[name="email"]').value,"current_job" : e.querySelector('[name="current_job"]').value, "country" : e.querySelector('[name="country"]').value, "province" : e.querySelector('[name="province"]').value,"city" : e.querySelector('[name="city"]').value, "address" : e.querySelector('[name="address"]').value,"password" : e.querySelector('[name="password"]').value,"clinic_address" : e.querySelector('[name="clinic_address"]').value},                        dataType: "json",
                         success: function(data) {
                             console.log(data);
                            // $('#sectionID').html(data);

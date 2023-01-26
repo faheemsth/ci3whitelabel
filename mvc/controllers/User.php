@@ -21,6 +21,7 @@ class User extends Admin_Controller {
 		$this->load->model('document_m');   
 		$this->load->model("make_payment_m"); 
 		$this->load->model("usermeta_m"); 
+		$this->load->model("regtype_m"); 
 		$language = $this->session->userdata('lang');
 		$this->lang->load('user', $language);
 	}
@@ -165,7 +166,7 @@ class User extends Admin_Controller {
 		return TRUE;
 	}
 
-	public function photoupload() {
+	public function photoupload($getfiles='file') {
 		$id = htmlentities(escapeString($this->uri->segment(3)));
 		$user = array();
 		if((int)$id) {
@@ -173,8 +174,8 @@ class User extends Admin_Controller {
 		}
 
 		$new_file = "default.png";
-		if($_FILES["photo"]['name'] !="") {
-			$file_name = $_FILES["photo"]['name'];
+		if($_FILES[$getfiles]['name'] !="") {
+			$file_name = $_FILES[$getfiles]['name'];
 			$random = random19();
 	    	$makeRandom = hash('sha512', $random.$this->input->post('username') . config_item("encryption_key"));
 			$file_name_rename = $makeRandom;
@@ -188,7 +189,7 @@ class User extends Admin_Controller {
 				$config['max_width'] = '3000';
 				$config['max_height'] = '3000';
 				$this->load->library('upload', $config);
-				if(!$this->upload->do_upload("photo")) {
+				if(!$this->upload->do_upload($getfiles)) {
 					$this->form_validation->set_message("photoupload", $this->upload->display_errors());
 	     			return FALSE;
 				} else {
@@ -265,8 +266,8 @@ class User extends Admin_Controller {
 				$array["create_username"] = $this->session->userdata('username');
 				$array["create_usertype"] = $this->session->userdata('usertype');
 				$array["active"] = 1;
+				
 				$array['photo'] = $this->upload_data['file']['file_name'];
-
 				$this->usercreatemail($this->input->post('email'), $this->input->post('username'), $this->input->post('password'));
 
 				$this->user_m->insert_user($array);
@@ -426,22 +427,7 @@ class User extends Admin_Controller {
 			if((int)$userID ) {
 				//$this->data['classes'] = $this->user_m->get_user();
 				$this->data['user'] = $this->user_m->get_single_user(array('userID' => $userID), TRUE);
-
-				// $this->data['parents'] = $this->parents_m->get_parents();
-	            // $this->data['studentgroups'] = $this->studentgroup_m->get_studentgroup();
-
-				// if(customCompute($this->data['user'])) {
-				// 	$classesID = $this->data['student']->srclassesID;
-				// 	$this->data['sections'] = $this->section_m->general_get_order_by_section(array('classesID' => $classesID));
-	            //     $this->data['optionalSubjects'] = $this->subject_m->general_get_order_by_subject(array("classesID" =>$classesID, 'type' => 0));
-	            //     if($this->input->post('optionalSubjectID')) {
-	            //         $this->data['optionalSubjectID'] = $this->input->post('optionalSubjectID');
-	            //     } else {
-	            //         $this->data['optionalSubjectID'] = 0;
-	            //     }
-				// }
-
-				
+				$this->data['regtype'] = $this->regtype_m->get_order_by_regtype(array(), TRUE);
 				if(customCompute($this->data['user'])) {
 					if($_POST) {
 						$rules = $this->status_rules(); 
@@ -451,7 +437,12 @@ class User extends Admin_Controller {
 							$this->load->view('_layout_main', $this->data);
 						} else {
 							$array = array();
-							$array["active"] 		= $this->input->post("active");
+							$array["status"] 		= $this->input->post("active");
+							$array["membertype"] 		= $this->input->post("membertype");
+							
+							if($array["status"]==1){
+								$array["member_since"] 	= date("Y-m-d H:i:s");
+							}
 							$array["modify_date"] 	= date("Y-m-d H:i:s");
 							 
 							$this->user_m->update_user($array, $userID);
@@ -490,7 +481,7 @@ class User extends Admin_Controller {
 		}
 	}
 	public function docupload() {
-
+		$id = htmlentities(escapeString($this->uri->segment(3)));
 		$this->data['headerassets'] = array(
 			'css' => array(
 				'assets/datepicker/datepicker.css'
@@ -502,12 +493,20 @@ class User extends Admin_Controller {
 		//$this->data['usertypes'] = $this->usertype_m->get_usertype();
 		$returnArray = ' ';
 		if($_POST) {
-				
+					$userID = $this->session->userdata('loginUserID');
+					if ($userID==Null){
+						$userID= $id;
+					}
+					$fff 	=	$this->photoupload('photo');
+					$array['photo'] = $this->upload_data['file']['file_name'];
+
+					$this->user_m->update_user($array, $userID);
+					
 					$title = 'ID Card Front';
 					$fff 	=	$this->unique_document_upload('id_front_file');
 					$file = $this->upload_data['file']['file_name'];
 					$passing_year = NULL;
-					$userID = $this->session->userdata('registerUserid');
+					
 					$usertypeID = 18;
 					$array = array(
 						'title' => $title,
@@ -524,7 +523,7 @@ class User extends Admin_Controller {
 					$fff 	=	$this->unique_document_upload('id_back_file');
 					$file = $this->upload_data['file']['file_name'];
 					$passing_year = NULL;
-					$userID = $this->session->userdata('registerUserid');
+					
 					$usertypeID = 18;
 					$array = array(
 						'title' => $title,
@@ -541,7 +540,7 @@ class User extends Admin_Controller {
 					$fff 	=	$this->unique_document_upload('matric_file');
 					$file = $this->upload_data['file']['file_name'];
 					$passing_year = $this->input->post("passing_year_matric");
-					$userID = $this->session->userdata('registerUserid');
+					
 					$usertypeID = 18;
 					$array = array(
 						'title' => $title,
@@ -558,7 +557,7 @@ class User extends Admin_Controller {
 					$fff 	=	$this->unique_document_upload('inter_file');
 					$file = $this->upload_data['file']['file_name'];
 					$passing_year = $this->input->post("passing_year_inter");
-					$userID = $this->session->userdata('registerUserid');
+					
 					$usertypeID = 18;
 					$array = array(
 						'title' => $title,
@@ -575,7 +574,7 @@ class User extends Admin_Controller {
 					$fff 	=	$this->unique_document_upload('undergraduate_file');
 					$file = $this->upload_data['file']['file_name'];
 					$passing_year = $this->input->post("passing_year_undergraduate");
-					$userID = $this->session->userdata('registerUserid');
+					
 					$usertypeID = 18;
 					$array = array(
 						'title' => $title,
@@ -588,11 +587,11 @@ class User extends Admin_Controller {
 						"create_usertypeID" => $usertypeID
 					);
 					$this->document_m->insert_document($array);
-					$title = 'Postgraduate';
+					$title = 'PG/Certificate';
 					$fff 	=	$this->unique_document_upload('postgraduate_file');
 					$file = $this->upload_data['file']['file_name'];
 					$passing_year = $this->input->post("passing_year_postgraduate");
-					$userID = $this->session->userdata('registerUserid');
+					
 					$usertypeID = 18;
 					$array = array(
 						'title' => $title,
@@ -605,28 +604,12 @@ class User extends Admin_Controller {
 						"create_usertypeID" => $usertypeID
 					);
 					$this->document_m->insert_document($array);
-					$title = 'Ph.D';
-					$fff 	=	$this->unique_document_upload('phd_file');
-					$file = $this->upload_data['file']['file_name'];
-					$passing_year = $this->input->post("passing_year_phd");
-					$userID = $this->session->userdata('registerUserid');
-					$usertypeID = 18;
-					$array = array(
-						'title' => $title,
-						'file' => $file,
-						'userID' => $userID,
-						'passing_year' => $passing_year,
-						'usertypeID' => $usertypeID,
-						"create_date" => date("Y-m-d H:i:s"),
-						"create_userID" => $userID,
-						"create_usertypeID" => $usertypeID
-					);
-					$this->document_m->insert_document($array);
-					$title = 'PMDC';
+					if($this->input->post("passing_year_pmdc")!=''){
+						$title = 'PMDC';
 					$fff 	=	$this->unique_document_upload('pmdc_file');
 					$file = $this->upload_data['file']['file_name'];
 					$passing_year = $this->input->post("passing_year_pmdc");
-					$userID = $this->session->userdata('registerUserid');
+					
 					$usertypeID = 18;
 					$array = array(
 						'title' => $title,
@@ -639,6 +622,7 @@ class User extends Admin_Controller {
 						"create_usertypeID" => $usertypeID
 					);
 					$this->document_m->insert_document($array);
+					}
 					$returnArray = [ 'return' => true, 'message' => 'Success'];
 				echo json_encode($returnArray);
 				
@@ -678,19 +662,21 @@ class User extends Admin_Controller {
 				$array["phone"] = $this->input->post("phone"); 
 				$array["jod"] = date("Y-m-d");
 				$array["username"] = $this->input->post("email");
-				$array["martial_status"] = $this->input->post("martial_status");
 				$array["current_job"] = $this->input->post("current_job");
 				$array["country"] = $this->input->post("country");
+				$array["city"] = $this->input->post("city");
 				$array["province"] = $this->input->post("province");
 				$array["address"] = $this->input->post("address");
+				$array["clinic_address"] = $this->input->post("clinic_address");
 				$array["password"] = $this->user_m->hash($this->input->post("password"));
 				$array["usertypeID"] = 18;
 				$array["create_date"] = date("Y-m-d h:i:s");
 				$array["modify_date"] = date("Y-m-d h:i:s");
 				$array["create_userID"] = 999999;
 				$array["create_username"] = 'self';
-				$array["create_usertype"] = 'Subscriber';
+				$array["create_usertype"] = 'Member';
 				$array["active"] = 1;
+				$array["status"] = 0;
 				//$array['photo'] = $this->upload_data['file']['file_name'];
 				//$this->unique_email();
 				// $this->usercreatemail($this->input->post('email'), $this->input->post('username'), $this->input->post('password'));
@@ -698,7 +684,7 @@ class User extends Admin_Controller {
 				$this->user_m->insert_user($array);
 				$lastId = $this->db->insert_id();
 				$session = [
-                                "registerUserid"         => $lastId,
+                                "loginUserID"         => $lastId,
                                 "name"                	 => $this->input->post("name"),
                                 "email"               	 => $this->input->post("email"),
                             ];
@@ -839,10 +825,16 @@ class User extends Admin_Controller {
 	protected function rules_documentupload() {
 		$rules = array(
 			array(
+				'field' => 'profile_picture',
+				'label' => $this->lang->line("profile_picture"),
+				'rules' => 'trim|max_length[200]|xss_clean|callback_photoupload'
+			),
+			array(
 				'field' => 'id_front_file',
 				'label' => $this->lang->line("id_front_file"),
 				'rules' => 'trim|xss_clean|max_length[200]|callback_unique_document_upload[]'
 			),
+
 			array(
 				'field' => 'id_back_file',
 				'label' => $this->lang->line("user_file"),
@@ -986,7 +978,7 @@ class User extends Admin_Controller {
 			if((permissionChecker('user_add') && permissionChecker('user_delete'))  || ($this->session->userdata('usertypeID') == $usertypeID && $this->session->userdata('loginuserID') == $userID)) {
 				$document = $this->document_m->get_single_document(array('documentID' => $documentID));
 				if(customCompute($document)) {
-					$file = realpath('uploads/documents/'.$document->file);
+					$file = realpath('uploads/images/'.$document->file);
 				    if (file_exists($file)) {
 				    	$expFileName = explode('.', $file);
 						$originalname = ($document->title).'.'.end($expFileName);

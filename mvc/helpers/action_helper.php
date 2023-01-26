@@ -20,6 +20,19 @@
                     );
         return $arr; 
     }
+    function get_tenure()
+    {
+        $arr = array(
+                    0       => '1 Month',
+                    1       => '6 Months',
+                    2       => '1 Year', 
+                    3       => '3 Years', 
+                    4      => '5 Years', 
+                    5       => '10 Years', 
+                    6       => 'Life Time', 
+                    );
+        return $arr; 
+    }
     
     function escapeString( $val )
     {
@@ -71,7 +84,7 @@
                 $new_tab    =   '';
             }
             return anchor($uri, "<i class='fa fa-eye'></i>",
-                "class='btn btn-success btn-sm mrg' ".$new_tab." data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "' ");
+                "class='btn btn-success btn-sm mrg' data-bs-toggle='tooltip' data-bs-custom-class='tooltip-inverse' data-bs-placement='top' title='View' ".$new_tab." data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "' ");
         }
 
         return '';
@@ -87,7 +100,7 @@
     {
         if ( visibleButton($uri) ) {
             return anchor($uri, "<i class='fa fa-edit'></i>",
-                "class='btn btn-warning btn-sm mrg' data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "'");
+                "class='btn btn-warning btn-sm mrg' data-bs-toggle='tooltip' data-bs-custom-class='tooltip-inverse' data-bs-placement='top' title='Edit' data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "'");
         }
         return '';
     }
@@ -110,7 +123,7 @@
     function btn_status_show( $uri, $name )
     {
         return anchor($uri, "<i class='fa fa-check'></i>",
-            "class='btn btn-info btn-sm mrg' data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "'");
+            "class='btn btn-info btn-sm mrg mt-2' data-bs-toggle='tooltip' data-bs-custom-class='tooltip-inverse' data-bs-placement='top' title='Update Status' data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "'");
     }
 
     function btn_not_status( $uri, $name )
@@ -135,9 +148,11 @@
                 [
                     'onclick'             => "return confirm('you are about to delete a record. This cannot be undone. are you sure?')",
                     'class'               => 'btn btn-danger btn-sm mrg',
-                    'data-placement'      => 'top',
-                    'data-toggle'         => 'tooltip',
-                    'data-original-title' => $name
+                    'data-bs-toggle'      => 'tooltip',
+                    'data-bs-custom-class'      => 'tooltip-inverse',
+                    'data-bs-placement'         => 'top',
+                    'data-title'         => 'Delete',
+                    'title' => $name
                 ]
             );
         }
@@ -1470,9 +1485,9 @@
 
         $array = [
             "src"    => $src,
-            'width'  => '35px',
-            'height' => '35px',
-            'class'  => 'img-rounded'
+            'width'  => '50px',
+            'height' => '50px',
+            'class'  => 'cursor-pointer symbol symbol-35px symbol-md-40px'
         ];
         return img($array);
     }

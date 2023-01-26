@@ -19,34 +19,14 @@
                             <?=$this->lang->line("regtype_title")?> <span class="text-red">*</span>
                         </label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control bg-transparent" id="regtype" name="regtype" value="<?=set_value('regtype')?>" >
+                            <input type="text" class="form-control bg-transparent" id="membertype" name="membertype" value="<?=set_value('regtype')?>" >
                         </div>
-                        <span class="col-sm-4  fs-6 fw-semibold mb-2 badge-light-danger">
+                        <span class="col-sm-4  fs-6 fw-semibold mb-2">
                             <?php echo form_error('regtype'); ?>
                         </span>
                     </div>
 
-                    <div class="form-group mb-7 <?=form_error('amount_type') ? 'has-error' : '' ?>" >
-                        <label for="title" class="col-sm-2   fs-6 fw-semibold mb-2">
-                            Amount Type <span class="text-red">*</span>
-                        </label>
-                        <div class="col-sm-6">
-
-                              <?php
-                                $array = array();
-                                $array['']      = 'Please Select';
-                                $array['PKR']   = 'PKR';
-                                $array['USD']   = 'USD';
-
-                                
-                                echo form_dropdown("amount_type", $array, set_value("amount_type"), "id='amount_type' class='form-control bg-transparent' data-control='select2'");
-                            ?>
-                             
-                        </div>
-                        <span class="col-sm-4   fs-6 fw-semibold mb-2 badge-light-danger">
-                            <?php echo form_error('amount_type'); ?>
-                        </span>
-                    </div>
+                    
 
                     <div class="form-group mb-7 <?=form_error('amount') ? 'has-error' : '' ?>" >
                         <label for="title" class="col-sm-2   fs-6 fw-semibold mb-2">
@@ -55,22 +35,8 @@
                         <div class="col-sm-6">
                             <input type="text" class="form-control bg-transparent" id="amount" name="amount" value="<?=set_value('amount')?>" >
                         </div>
-                        <span class="col-sm-4   fs-6 fw-semibold mb-2 badge-light-danger">
+                        <span class="col-sm-4   fs-6 fw-semibold mb-2">
                             <?php echo form_error('amount'); ?>
-                        </span>
-                    </div>
-                    <div class="form-group mb-7 <?=form_error('tenure') ? 'has-error' : '' ?>" >
-                        <label for="title" class="col-sm-2   fs-6 fw-semibold mb-2">
-                            Select Tenure  <span class="text-red">*</span>
-                        </label>
-                        <div class="col-sm-6">
-                           <?php 
-                                $bloodArray =  get_tenure();
-                                echo form_dropdown("tenure", $bloodArray, set_value("tenure"), "id='tenure' class='form-control bg-transparent' data-control='select2'"); 
-                            ?>
-                        </div>
-                        <span class="col-sm-4   fs-6 fw-semibold mb-2 badge-light-danger">
-                            <?php echo form_error('tenure'); ?>
                         </span>
                     </div>
 

@@ -59,11 +59,7 @@
              <!--begin::Input group=-->
     <div class="fv-row mb-8">
         <!--begin::Gender-->
-        <select class="form-select" data-control="select2" name="martial_status" data-placeholder="Martial Status">
-            <option></option>
-            <option value="married">Married</option>
-            <option value="unmarried">Unmarried</option>
-        </select>
+         <input type="text" placeholder="Enter Job Title" name="current_job" autocomplete="off" class="form-control bg-transparent" />
         <!--end::Gender-->
     </div>
        </div>
@@ -71,7 +67,13 @@
              <!--begin::Input group=-->
     <div class="fv-row mb-8">
         <!--begin::Email-->
-        <input type="text" placeholder="Enter Job Title" name="current_job" autocomplete="off" class="form-control bg-transparent" />
+        <select class="form-select" data-control="select2" name="country" data-placeholder="Select Country">
+             <option></option>
+            <?php foreach (getCountrys() as $key=>$value) { ?>
+             <option value="<?php echo $key ?>"><?php echo $value ?></option>
+              <?php }
+              ?>
+        </select>
         <!--end::Email-->
     </div>
     <!--begin::Input group-->
@@ -83,13 +85,7 @@
      <div class="fv-row mb-8">
         <!--begin::Email-->
          <!--begin::Gender-->
-        <select class="form-select" data-control="select2" name="country" data-placeholder="Select Country">
-             <option></option>
-            <?php foreach (getCountrys() as $key=>$value) { ?>
-             <option value="<?php echo $key ?>"><?php echo $value ?></option>
-              <?php }
-              ?>
-        </select>
+        <input type="text" placeholder="Enter Province Name" name="province" autocomplete="off" class="form-control bg-transparent" />
         <!--end::Gender-->
     </div>
        </div>
@@ -97,7 +93,7 @@
              <!--begin::Input group=-->
     <div class="fv-row mb-8">
         <!--begin::Email-->
-        <input type="text" placeholder="Enter Province Name" name="province" autocomplete="off" class="form-control bg-transparent" />
+        <input type="text" placeholder="Enter City Name" name="city" autocomplete="off" class="form-control bg-transparent" />
         <!--end::Email-->
     </div>
     <!--begin::Input group-->
@@ -105,7 +101,12 @@
    </div>
    <div class="fv-row mb-8">
         <!--begin::Email-->
-        <input type="text" placeholder="Enter Address" name="address" autocomplete="off" class="form-control bg-transparent" />
+        <input type="text" placeholder="Enter Personal Address" name="address" autocomplete="off" class="form-control bg-transparent" />
+        <!--end::Email-->
+    </div>
+    <div class="fv-row mb-8">
+        <!--begin::Email-->
+        <input type="text" placeholder="Enter Clinic Address" name="clinic_address" autocomplete="off" class="form-control bg-transparent" />
         <!--end::Email-->
     </div>
     <div class="fv-row mb-8" data-kt-password-meter="true">

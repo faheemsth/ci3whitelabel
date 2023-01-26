@@ -22,16 +22,16 @@
                 <?php } ?>
 
                 <div id="hide-table">
-                    <table id="example1" class="table table-striped table-bordered table-hover dataTable no-footer">
+                   <table id="kt_datatable_dom_positioning" class="table table-striped table-row-bordered gy-5 gs-7 border rounded">
                         <thead>
-                            <tr>
+                            <tr class="fw-bold fs-6 text-gray-800 px-7">
                                 <th class="col-lg-1"><?=$this->lang->line('slno')?></th>
                                 <th class="col-lg-2"><?=$this->lang->line('user_photo')?></th>
                                 <th class="col-lg-2"><?=$this->lang->line('user_name')?></th>
                                 <th class="col-lg-2"><?=$this->lang->line('user_email')?></th>
-                                <th class="col-lg-2"><?=$this->lang->line('user_usertype')?></th>
+                                <th class="col-lg-2"><?=$this->lang->line('user_status')?></th>
                                 <?php if(permissionChecker('user_edit')) { ?>
-                                <th class="col-lg-1"><?=$this->lang->line('user_status')?></th>
+                                <th class="col-lg-1">Active</th>
                                 <?php } ?>
                                 <?php if(permissionChecker('user_edit') || permissionChecker('user_delete') || permissionChecker('user_view')) { ?>
                                 <th class="col-lg-2"><?=$this->lang->line('action')?></th>
@@ -54,7 +54,10 @@
                                         <?php echo $user->email; ?>
                                     </td>
                                     <td data-title="<?=$this->lang->line('user_usertype')?>">
-                                        <?=$user->usertype;?>
+                                        <?php 
+                                           $status= get_status_type();
+                                            echo $status[$user->status]; 
+                                          ?>
                                     </td>
                                     <?php if(permissionChecker('user_edit')) { ?>
                                     <td data-title="<?=$this->lang->line('user_status')?>">

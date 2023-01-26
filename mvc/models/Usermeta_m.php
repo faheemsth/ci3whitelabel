@@ -5,7 +5,7 @@ class usermeta_m extends MY_Model {
     protected $_table_name = 'usermeta';
     protected $_primary_key = 'usermetaID';
     protected $_primary_filter = 'intval';
-    protected $_order_by = "usermetaID asc";
+    protected $_order_by = "usermetaID desc";
 
     function __construct() {
         parent::__construct();

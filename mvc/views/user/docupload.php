@@ -9,8 +9,27 @@
         <div class="text-gray-500 fw-semibold fs-6">Please Upload Your Documents to Confirm Your Registration</div>
         <!--end::Subtitle=-->
     </div>
+    
     <!--begin::Heading-->
        <div class="row">
+       <div class="col-md-6">
+            <div class="fv-row mb-8">
+        <!--begin::Name-->
+        <input type="text" placeholder="Profile" name="photo" value="Passport Size Picture" readonly autocomplete="off" class="form-control bg-transparent" />
+        <!--end::Name-->
+    </div>
+       </div>
+       <div class="col-md-6">
+           <!--begin::Input group=-->
+    <div class="fv-row mb-8">
+        <!--begin::Gender-->
+       <input type="file" placeholder="Add Payment Receipt" name="photo" autocomplete="off" id="file" class="form-control bg-transparent" />
+        <!--end::Gender-->
+    </div>
+    <!--end::Input Group-->
+       </div>
+   </div>
+          <div class="row">
        <div class="col-md-6">
             <div class="fv-row mb-8">
         <!--begin::Name-->
@@ -125,7 +144,7 @@
        <div class="col-md-3">
             <div class="fv-row mb-8">
         <!--begin::Name-->
-        <input type="text" placeholder="Matric" name="postgraduate" value="Postgraduate" readonly autocomplete="off" class="form-control bg-transparent" />
+        <input type="text" placeholder="Matric" name="postgraduate" value="PG/Certificate" readonly autocomplete="off" class="form-control bg-transparent" />
         <!--end::Name-->
     </div>
        </div>
@@ -141,31 +160,6 @@
     <div class="fv-row mb-8">
         <!--begin::Gender-->
        <input type="file" placeholder="Add Payment Receipt" name="postgraduate_file" autocomplete="off" id="file" class="form-control bg-transparent" />
-        <!--end::Gender-->
-    </div>
-    <!--end::Input Group-->
-       </div>
-   </div>
-       <div class="row">
-       <div class="col-md-3">
-            <div class="fv-row mb-8">
-        <!--begin::Name-->
-        <input type="text" placeholder="Matric" name="phd" value="PhD" readonly autocomplete="off" class="form-control bg-transparent" />
-        <!--end::Name-->
-    </div>
-       </div>
-       <div class="col-md-3">
-            <div class="fv-row mb-8">
-        <!--begin::Name-->
-        <input type="text" placeholder="Passing Year" name="passing_year_phd" autocomplete="off" class="form-control bg-transparent" />
-        <!--end::Name-->
-    </div>
-       </div>
-       <div class="col-md-6">
-           <!--begin::Input group=-->
-    <div class="fv-row mb-8">
-        <!--begin::Gender-->
-       <input type="file" placeholder="Add Payment Receipt" name="phd_file" autocomplete="off" id="file" class="form-control bg-transparent" />
         <!--end::Gender-->
     </div>
     <!--end::Input Group-->
