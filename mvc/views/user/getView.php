@@ -5,8 +5,8 @@
             <div class="card-header">
         <h3 class="card-title"><i class="fa fa-users mx-2"></i> <?=$this->lang->line('panel_title')?></h3>
         <ol class="breadcrumb">
-           <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a></li>
-                <li><a href="<?=base_url("user/index")?>"><?=$this->lang->line('menu_user')?></a></li>
+           <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a> / </li>
+                <li class="mx-2"><a href="<?=base_url("user/index")?>"><?=$this->lang->line('menu_user')?></a> / </li>
                 <li class="active mx-2"><?=$this->lang->line('view')?></li>
         </ol>
     </div>

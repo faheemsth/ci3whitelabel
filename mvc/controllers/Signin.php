@@ -255,31 +255,6 @@ class Signin extends Admin_Controller {
                     $userType = $this->usertype_m->get_single_usertype([ 'usertypeID' => $user->usertypeID ]);
                     if ( customCompute($userType) ) {
                         // if ($user->usertypeID != 3) {
-                            $this->_loginLog($user->usertypeID, $userID);
-                            $session = [
-                                "loginuserID"         => $userID,
-                                "name"                => $user->name,
-                                "email"               => $user->email,
-                                "usertypeID"          => $user->usertypeID,
-                                'usertype'            => $userType->usertype,
-                                "username"            => $user->username,
-                                "photo"               => $user->photo,
-                                "lang"                => $lang,
-                                "defaultschoolyearID" => $defaultSchoolYearID,
-                                "varifyvaliduser"     => $verifyValidUser,
-                                "user_status"         => $user->active,
-                                "loggedin"            => true
-                                // "dev_test"            => 'Shuja'
-                            ];
-
-                            $this->session->set_userdata($session);
-
-
-                            $returnArray = [ 'return' => true, 'message' => 'Success' ];
-                        // }else{
-                        //     $returnArray = [ 'return' => false, 'message' => 'System is in maintainance mode' ];
-                        // }
-                        // if ( $user->active ) {
                             // $this->_loginLog($user->usertypeID, $userID);
                             // $session = [
                             //     "loginuserID"         => $userID,
@@ -294,18 +269,43 @@ class Signin extends Admin_Controller {
                             //     "varifyvaliduser"     => $verifyValidUser,
                             //     "user_status"         => $user->active,
                             //     "loggedin"            => true
+                                
                             // ];
 
                             // $this->session->set_userdata($session);
+
+
                             // $returnArray = [ 'return' => true, 'message' => 'Success' ];
-                        // } else {
-                        //     $returnArray = [ 'return' => false, 'message' => 'You are blocked' ];
+                        // }else{
+                        //     $returnArray = [ 'return' => false, 'message' => 'System is in maintainance mode' ];
                         // }
+                        if ( $user->active ) {
+                            $this->_loginLog($user->usertypeID, $userID);
+                            $session = [
+                                "loginuserID"         => $userID,
+                                "name"                => $user->name,
+                                "email"               => $user->email,
+                                "usertypeID"          => $user->usertypeID,
+                                'usertype'            => $userType->usertype,
+                                "username"            => $user->username,
+                                "photo"               => $user->photo,
+                                "lang"                => $lang,
+                                "defaultschoolyearID" => $defaultSchoolYearID,
+                                "varifyvaliduser"     => $verifyValidUser,
+                                "user_status"         => $user->active,
+                                "loggedin"            => true
+                            ];
+
+                            $this->session->set_userdata($session);
+                            $returnArray = [ 'return' => true, 'message' => 'Success' ];
+                        } else {
+                            $returnArray = [ 'return' => false, 'message' => 'You are blocked By Admin' ];
+                        }
                     } else {
                         $returnArray = [ 'return' => false, 'message' => 'This user role does not exist' ];
                     }
                 } else {
-                    $returnArray = [ 'return' => false, 'message' => 'Incorrect Signin' ];
+                    $returnArray = [ 'return' => false, 'message' => 'Incorrect Details' ];
                 }
             } else {
                 $captchaResponseError = ( is_array($captchaResponse['error-codes']) ) ? $captchaResponse['error-codes'][0] : $captchaResponse['error-codes'];

@@ -75,7 +75,7 @@ var KTSignupGeneral = function() {
                             }
                         }
                     },
-                    address: {
+                    clinic_address: {
                         validators: {
                             notEmpty: {
                                 message: "Clinic Address is required"

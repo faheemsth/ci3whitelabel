@@ -21,7 +21,7 @@
             return $query->result();
         }
 
-        public function get_user_by_usertype( $userID = null )
+        public function get_user_by_usertype( $userID = null, $array=null )
         {
             $this->db->select('*');
             $this->db->from('user');
@@ -31,6 +31,9 @@
                 $query = $this->db->get();
                 return $query->row();
             } else {
+                if($array!=null){
+                    $this->db->where($array);
+                }
                 $query = $this->db->get();
                 return $query->result();
             }

@@ -28,6 +28,7 @@
             $this->load->model("automation_rec_m");
             $this->load->model("setting_m");
             $this->load->model("notice_m");
+            $this->load->model("alert_m");
             $this->load->model("user_m"); 
             $this->load->model("feetypes_m");
             $this->load->model("invoice_m"); 
@@ -369,15 +370,8 @@
 
         public function user()
         {
-
-           
-           
-
            
             $this->_profile();
-
-          
-
             $this->data["subview"] = "dashboard/user";
             $this->load->view('_layout_frontend', $this->data);
         }
@@ -689,6 +683,11 @@
 
             if ( $userTypeID == 1 ) {
                 $this->data['user'] = $this->systemadmin_m->get_single_systemadmin([ 'systemadminID' => $loginUserID ]);
+                $this->data['notices']  = $this->notice_m->get_order_by_notice([ 'schoolyearID' => 1 ]);
+                $this->data['alerts']  = $this->alert_m->get_order_by_alert([ 'itemname' => 'notice','userID'=>$loginUserID,'usertypeID'=>$userTypeID ]);
+                
+                $this->data['allreadnotice']  =pluck($this->data['alerts'], 'obj',
+                'itemID');
             } elseif ( $userTypeID == 2 ) {
                 $this->data['user'] = $this->teacher_m->get_single_teacher([ 'teacherID' => $loginUserID ]);
             } elseif ( $userTypeID == 3 ) {

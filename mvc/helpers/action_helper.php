@@ -20,6 +20,27 @@
                     );
         return $arr; 
     }
+    function get_status_login()
+    {
+        $arr = array(
+                    0       => 'In Active',
+                    1       => 'Active',
+                    );
+        return $arr; 
+    }
+    function get_document_type()
+    {
+        $arr = array(
+                    0       => 'ID Card Front',
+                    1       => 'ID Card Back',
+                    2       => 'Matric', 
+                    3       => 'Inter', 
+                    4       => 'Undergraduate', 
+                    5       => 'PG/Certificate', 
+                    6       => 'PMDC', 
+                    );
+        return $arr; 
+    }
     function get_tenure()
     {
         $arr = array(
@@ -29,6 +50,19 @@
                     3       => '3 Years', 
                     4      => '5 Years', 
                     5       => '10 Years', 
+                    6       => 'Life Time', 
+                    );
+        return $arr; 
+    }
+    function get_tenure_months()
+    {
+        $arr = array(
+                    0       => '1',
+                    1       => '6',
+                    2       => '12', 
+                    3       => '36', 
+                    4      => '60', 
+                    5       => '120', 
                     6       => 'Life Time', 
                     );
         return $arr; 
@@ -211,7 +245,7 @@
 
     function btn_dash_view( $uri, $name, $class = "btn-success" )
     {
-        return anchor($uri, "<span class='fa fa-check-square-o'></span>",
+        return anchor($uri, "<span class='fa fa-check'></span>",
             "class='btn " . $class . " btn-xs mrg' style='background-color:#00bcd4;color:#fff;' data-placement='top' data-toggle='tooltip' data-original-title='" . $name . "'");
     }
 

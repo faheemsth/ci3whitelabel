@@ -35,6 +35,11 @@ class Document_m extends MY_Model {
 		parent::update($data, $id);
 		return $id;
 	}
+	public function update_documents_where($data, $array = NULL) {
+		$this->db->set($data);
+		$this->db->where($array);
+		$this->db->update("document");
+	}
 
 	public function delete_document($id){
 		parent::delete($id);

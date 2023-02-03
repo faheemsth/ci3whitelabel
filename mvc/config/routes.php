@@ -15,4 +15,4 @@
     $route['other_charges/(:num)'] = "Other_charges/index/$1";
     $route['other_charges/(:num)/(:any)'] = "Other_charges/index/$1/$2";
     $route['version']            = 'app/version';
-    $route['default_controller'] = 'signin/index';
+    $route['default_controller'] = 'home/index';

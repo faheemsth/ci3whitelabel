@@ -209,11 +209,11 @@
     </div>
 
     <div class="row">
-        <?php if(permissionChecker('notice')) { ?>
-        <div class="col-sm-6">
-            <?php $this->load->view('dashboard/NoticeBoard', array('val' => 5, 'length' => 15, 'maxlength' => 45)); ?>
+        
+        <div class="col-sm-12">
+            <?php $this->load->view('dashboard/NoticeBoard', array('val' => 5, 'length' => 25, 'maxlength' => 85)); ?>
         </div>
-        <?php } ?>
+     
         <div class="col-sm-6">
             <div class="box">
                 <div class="box-body" style="padding: 0px;">

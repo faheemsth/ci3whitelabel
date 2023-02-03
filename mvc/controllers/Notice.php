@@ -244,7 +244,7 @@ public function photoupload() {
 		if((int)$id) {
 			$this->data['notice'] = $this->notice_m->get_single_notice(array('noticeID' => $id, 'schoolyearID' => $schoolyearID));
 			if($this->data['notice']) {
-
+				
 				$alert = $this->alert_m->get_single_alert(array('itemID' => $id, "userID" => $this->session->userdata("loginuserID"), 'usertypeID' => $this->session->userdata('usertypeID'), 'itemname' => 'notice'));
 				if(!customCompute($alert)) {
 					$array = array(

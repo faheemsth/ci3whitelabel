@@ -78,12 +78,13 @@ class Admin_Controller extends MY_Controller {
             'signin/forget_password',
             'user/register',
             'user/docupload',
-            'signin/dashboard'
+            'signin/dashboard',
+            'home/index',
 
         ];
                if ( in_array(uri_string(), $exceptionUris) == false ) {
             if ( $this->signin_m->loggedin() == false ) {
-                    $url = base_url("signin/index");
+                    $url = base_url("home/index");
             }
         }
         return $url;
@@ -293,6 +294,81 @@ class Admin_Controller extends MY_Controller {
 	    }
 	}
 
+    public function userRegisterdemail($lastId,$email=NULL, $name=NULL) {
+        $this->load->model('emailsetting_m');
+        $emailSetting = $this->emailsetting_m->get_emailsetting();
+        $this->load->library('email');
+        $this->email->set_mailtype("html");
+
+        if(customCompute($emailSetting)) {
+            if($emailSetting->email_engine == 'smtp') {
+                $config = array(
+                    'protocol'  => 'smtp',
+                    'smtp_host' => $emailSetting->smtp_server,
+                    'smtp_port' => $emailSetting->smtp_port,
+                    'smtp_user' => $emailSetting->smtp_username,
+                    'smtp_pass' => $emailSetting->smtp_password,
+                    'mailtype'  => 'html',
+                    'charset'   => 'utf-8'
+                );
+                $this->email->initialize($config);
+                $this->email->set_newline("\r\n");
+            }
+        }
+
+        if($email) {
+            $this->email->from($this->data['siteinfos']->email, $this->data['siteinfos']->sname);
+            $this->email->to($email);
+            $this->email->subject('User Registeration');
+            $url = base_url();
+            $message = "<h2>Welcome, ".$name." to Society of Ultrasound in Pakistan</h2>
+            <p>You have successfully registered as a Member. </p>
+             
+            <br>
+           <p><a href='https://portal.ultrasoundpak.com/user/docupload/?id=".$lastId."' style='padding: 8px 12px; border: 1px solid #ED2939;border-radius: 2px;font-family: Helvetica, Arial, sans-serif;font-size: 14px; color: #ffffff;text-decoration: none;font-weight:bold;display: inline-block;'>Upload Documents</a></p>
+            <p>Best Wishes,</p>
+            <p>The ".$this->data['siteinfos']->sname." Team</p>";
+            $this->email->message($message);
+            $this->email->send();
+        }
+    }
+    public function createMemberemail($useremail,$membername) {
+        $this->load->model('emailsetting_m');
+        $emailSetting = $this->emailsetting_m->get_emailsetting();
+        $this->load->library('email');
+        $this->email->set_mailtype("html");
+
+        if(customCompute($emailSetting)) {
+            if($emailSetting->email_engine == 'smtp') {
+                $config = array(
+                    'protocol'  => 'smtp',
+                    'smtp_host' => $emailSetting->smtp_server,
+                    'smtp_port' => $emailSetting->smtp_port,
+                    'smtp_user' => $emailSetting->smtp_username,
+                    'smtp_pass' => $emailSetting->smtp_password,
+                    'mailtype'  => 'html',
+                    'charset'   => 'utf-8'
+                );
+                $this->email->initialize($config);
+                $this->email->set_newline("\r\n");
+            }
+        }
+
+        if($useremail) {
+            $this->email->from($this->data['siteinfos']->email, $this->data['siteinfos']->sname);
+            $this->email->to($useremail);
+            $this->email->subject('Member Approved');
+            $url = base_url();
+            $message = "<h2>Welcome, to Society of Ultrasound in Pakistan</h2>
+            <p>Your account is approved as a ".$membername->regtype.". </p> 
+            <br>
+           
+            <p>Best Wishes,</p>
+            <p>The Team ".$this->data['siteinfos']->sname."</p>";
+            $this->email->message($message);
+            $this->email->send();
+        }
+    }
     public function conferencecreatemail($data,$conference,$email) {
         $this->load->model('emailsetting_m');
         $emailSetting = $this->emailsetting_m->get_emailsetting();

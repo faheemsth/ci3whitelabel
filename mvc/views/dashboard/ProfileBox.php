@@ -69,10 +69,12 @@
                   {
                     $valuit=  $r->meta_value;
                   $myarray = unserialize($valuit);
-                  echo $status[$myarray['status']];
+                  if($myarray['reason']!=''){
+                    echo $status[$myarray['status']];
                   echo ': ';
                   echo $myarray['reason'];
                   echo '<hr>';
+                  }
                   }
                     
                  ?>
@@ -81,5 +83,6 @@
                   <?php } ?>
               </tbody>
           </table>
+          
         </section>
       <?php } ?>

@@ -5,7 +5,7 @@
 
         <ol class="breadcrumb">
             <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a></li>
-            <li class="active mx-2"><?=$this->lang->line('panel_title')?></li>
+            <li class="active mx-2"> / <?=$this->lang->line('panel_title')?></li>
         </ol>
     </div><!-- /.card-header -->
     <!-- form start -->
@@ -14,7 +14,7 @@
             <div class="col-sm-12">
                 <?php if(permissionChecker('regtype_add')) { ?>
                     <h5 class="page-header mb-3">
-                        <a href="<?php echo base_url('regtype/add') ?>">
+                        <a href="<?php echo base_url('regtype/add') ?>" class="btn btn-success btn-sm mrg">
                             <i class="fa fa-plus"></i>
                             <?=$this->lang->line('add_title')?>
                         </a>

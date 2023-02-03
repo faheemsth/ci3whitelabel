@@ -3,8 +3,8 @@
     <div class=" card-header">
         <h3 class="card-title"><i class="fa fa-calendar mx-2"></i> <?=$this->lang->line('panel_title')?></h3>
         <ol class="breadcrumb">
-            <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a></li>
-            <li><a href="<?=base_url("regtype/index")?>"><?=$this->lang->line('menu_regtype')?></a></li>
+            <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a> / </li>
+            <li class="mx-2"><a href="<?=base_url("regtype/index")?>">Member Type</a> / </li>
             <li class="active mx-2"><?=$this->lang->line('menu_edit')?> <?=$this->lang->line('menu_regtype')?></li>
         </ol>
     </div><!-- /. card-header -->

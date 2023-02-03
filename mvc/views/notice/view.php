@@ -1,35 +1,23 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-calendar mx-2"></i> <?=$this->lang->line('panel_title')?></h3>
 
-<div class="well">
-    <div class="row">
-        <div class="col-sm-6">
-            <button class="btn-cs btn-sm-cs" onclick="javascript:printDiv('printablediv')"><span class="fa fa-print"></span> <?=$this->lang->line('print')?> </button>
-            <?php
-             echo btn_add_pdf('notice/print_preview/'.$notice->noticeID, $this->lang->line('pdf_preview')) 
-            ?>
-            <?php if(($siteinfos->school_year == $this->session->userdata('defaultschoolyearID')) || ($this->session->userdata('usertypeID') == 1)) { ?>
-                <?php if(permissionChecker('notice_edit')) { echo btn_sm_edit('notice/edit/'.$notice->noticeID, $this->lang->line('edit')); } ?>
-            <?php } ?>
-            <button class="btn-cs btn-sm-cs" data-toggle="modal" data-target="#mail"><span class="fa fa-envelope-o"></span> <?=$this->lang->line('mail')?></button>
-        </div>
+       
+        <ol class="breadcrumb">
+            <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a> / </li>
+            <li class="active mx-2">View</li>
+        </ol>
+    </div><!-- /.card-header -->
 
-        <div class="col-sm-6">
-            <ol class="breadcrumb">
-                <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a></li>
-                <li><a href="<?=base_url("notice/index")?>"><?=$this->lang->line('menu_notice')?></a></li>
-                <li class="active"><?=$this->lang->line('menu_view')?></li>
-            </ol>
-        </div>
-    </div>
-</div>
-
-<section class="panel">
+<section class="card-body">
     <div class="panel-body bio-graph-info">
         <div id="printablediv" class="box-body">
             <div class="row">
                 <div class="col-sm-12">
-                    <?php echo $notice->title; ?><br><br>
+                    <strong><?php echo $notice->title; ?></strong><br><br>
                     <?php echo $notice->notice; ?><br><br>
-                    <?php echo date("d M Y", strtotime($notice->date)); ?>
+                    <strong><?php echo date("d M Y", strtotime($notice->date)); ?></strong><br><br>
+                <a href="<?= base_url('user/view/').$notice->create_userID?>" class="btn btn-lg btn-success">View User</a>
                 </div>
             </div>
         </div>

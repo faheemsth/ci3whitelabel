@@ -5,7 +5,7 @@ class Regtype_m extends MY_Model {
     protected $_table_name = 'regtype';
     protected $_primary_key = 'regtypeID';
     protected $_primary_filter = 'intval';
-    protected $_order_by = "regtype asc";
+    protected $_order_by = "regtypeID asc";
 
     function __construct() {
         parent::__construct();

@@ -65,7 +65,7 @@ var KTSigninGeneral = function() {
                         }))
                         }else{
                             Swal.fire({
-                        text: "Sorry, Invalid login details, please try again.",
+                        text: res.message,
                         icon: "error",
                         buttonsStyling: !1,
                         confirmButtonText: "Ok, got it!",

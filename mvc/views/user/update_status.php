@@ -3,8 +3,9 @@
     <div class="card-header">
         <h3 class="card-title"><i class="fa fa-users mx-2"></i> <?=$this->lang->line('panel_title')?></h3>
         <ol class="breadcrumb">
-            <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a></li>
-            <li class="active mx-2"><?=$this->lang->line('menu_user')?></li>
+           <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a> / </li>
+                <li class="mx-2"><a href="<?=base_url("user/index")?>"><?=$this->lang->line('menu_user')?></a> / </li>
+                <li class="active mx-2">Update Status</li>
         </ol>
     </div><!-- /.card-header -->
     <!-- form start -->
@@ -14,21 +15,7 @@
 
                 <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
                    
-                    <?php 
-                        if(form_error('reason')) 
-                            echo "<div class='form-group mb-7 has-error' >";
-                        else     
-                            echo "<div class='form-group mb-7' >";
-                    ?>
-                        <label for="name_id" class="col-sm-2 control-label">
-                            Reason <span class="text-red">*</span>
-                        </label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control bg-transparent" id="reason" name="reason" value="<?=set_value('reason', '')?>" >
-                        </div>
-                        <span class="col-sm-4 control-label">
-                            <?php echo form_error('reason'); ?>
-                        </span>
+                   
                     </div>
 
                     
@@ -50,6 +37,22 @@
                         </div>
                         <span class="col-sm-4 control-label">
                             <?php echo form_error('active'); ?>
+                        </span>
+                    </div>
+                     <?php 
+                        if(form_error('reason')) 
+                            echo "<div id= 'reasondiv' class='form-group mb-7 has-error' >";
+                        else     
+                            echo "<div class='form-group mb-7' id= 'reasondiv' >";
+                    ?>
+                        <label for="name_id" class="col-sm-2 control-label">
+                            Reason <span class="text-red">*</span>
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control bg-transparent" id="reason" name="reason" value="<?=set_value('reason', '')?>" >
+                        </div>
+                        <span class="col-sm-4 control-label">
+                            <?php echo form_error('reason'); ?>
                         </span>
                     </div>
                     <?php 
@@ -77,7 +80,7 @@
                         </span>
                     </div>
                     
-                    <div class="form-group mb-7">
+                    <div class="form-group mb-7 mt-3">
                         <div class="col-sm-offset-2 col-sm-8">
                             <input type="submit" class="btn btn-success" value="Update Status" >
                         </div>
@@ -100,8 +103,10 @@
          
         if(active == '1'){
             $("#membertypediv").show('slow'); 
+            $("#reasondiv").hide('slow'); 
         } else {
             $("#membertypediv").hide('slow'); 
+            $("#reasondiv").show('slow'); 
         }
 
          
@@ -112,8 +117,10 @@
          
         if(active == '1'){
             $("#membertypediv").show('slow'); 
+            $("#reasondiv").hide('slow'); 
         } else {
             $("#membertypediv").hide(500); 
+            $("#reasondiv").show(500); 
         }
 });
 </script>

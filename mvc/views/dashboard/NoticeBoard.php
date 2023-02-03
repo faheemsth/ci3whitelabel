@@ -1,6 +1,6 @@
       <div class="box">
         <div class="box-header" style="background-color: #fff;">
-          <h3 class="box-title text-black">
+          <h3 class="box-title text-black mt-9">
               <?=$this->lang->line('dashboard_notice')?>
             </h3>
         </div>
@@ -8,12 +8,21 @@
         <div class="box-body" style="padding: 0px;">
           <table class="table table-hover">
               <tbody>
+                <tr class="fw-bold fs-6 text-gray-800 px-7">
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Action</th>
+                </tr>
+                
                 <?php
+
+                 
                   if(customCompute($notices)) {
                     $i =0;
                     $j = 1;
                     foreach ($notices as $key => $notice) {
-                      if($i != $val) {
+                      if(!array_key_exists($notice->noticeID,$allreadnotice)) {
                         echo "<tr>";
                           echo "<td>";
                             echo $j;
@@ -43,9 +52,7 @@
                         echo "</tr>";
                         $i++;
                         $j++;
-                      } else {
-                        break;
-                      }
+                      } 
 
                     }
                   }

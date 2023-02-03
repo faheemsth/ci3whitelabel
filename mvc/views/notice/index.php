@@ -1,36 +1,27 @@
 
-<div class="box">
-    <div class="box-header">
-        <h3 class="box-title"><i class="fa fa-calendar"></i> <?=$this->lang->line('panel_title')?></h3>
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title"><i class="fa fa-calendar mx-2"></i> <?=$this->lang->line('panel_title')?></h3>
 
        
         <ol class="breadcrumb">
-            <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a></li>
-            <li class="active"><?=$this->lang->line('menu_notice')?></li>
+            <li><a href="<?=base_url("dashboard/index")?>"><i class="fa fa-laptop"></i> <?=$this->lang->line('menu_dashboard')?></a> / </li>
+            <li class="active mx-2"><?=$this->lang->line('menu_notice')?></li>
         </ol>
-    </div><!-- /.box-header -->
+    </div><!-- /.card-header -->
     <!-- form start -->
-    <div class="box-body">
+    <div class="card-body">
         <div class="row">
             <div class="col-sm-12">
-                <?php if(($siteinfos->school_year == $this->session->userdata('defaultschoolyearID')) || ($this->session->userdata('usertypeID') == 1)) { ?>
-                    <?php if(permissionChecker('notice_add')) { ?>
-                        <h5 class="page-header">
-                            <a href="<?php echo base_url('notice/add') ?>">
-                                <i class="fa fa-plus"></i> 
-                                <?=$this->lang->line('add_title')?>
-                            </a>
-                        </h5>
-                    <?php } ?>
-                <?php } ?>
+                
                 <div id="hide-table">
-                    <table id="example1" class="table table-striped table-bordered table-hover dataTable no-footer">
+                     <table id="kt_datatable_dom_positioning" class="table table-striped table-row-bordered gy-5 gs-7 border rounded">
                         <thead>
-                            <tr>
-                                <th class="col-sm-2"><?=$this->lang->line('slno')?></th>
+                            <tr class="fw-bold fs-6 text-gray-800 px-7">
+                                <th class="col-sm-1"><?=$this->lang->line('slno')?></th>
                                 <th class="col-sm-2"><?=$this->lang->line('notice_title')?></th>
                                 <th class="col-sm-2"><?=$this->lang->line('notice_date')?></th>
-                                <th class="col-sm-4"><?=$this->lang->line('notice_notice')?></th>
+                                <th class="col-sm-5">Description</th>
                                 <?php if(permissionChecker('notice_edit') || permissionChecker('notice_delete') || permissionChecker('notice_view')) { ?>
                                     <th class="col-sm-2"><?=$this->lang->line('action')?></th>
                                 <?php } ?>
@@ -55,10 +46,10 @@
                                     </td>
                                     <td data-title="<?=$this->lang->line('notice_notice')?>">
                                         <?php 
-                                            if(strlen($notice->notice) > 60)
-                                                echo strip_tags(substr($notice->notice, 0, 60)."...");
+                                            if(strlen($notice->notice) > 80)
+                                                echo strip_tags(substr($notice->notice, 0, 80)."...");
                                             else 
-                                                echo strip_tags(substr($notice->notice, 0, 60));
+                                                echo strip_tags(substr($notice->notice, 0, 80));
                                         ?>
                                     </td>
                                     <?php if(permissionChecker('notice_edit') || permissionChecker('notice_delete') || permissionChecker('notice_view')) { ?>
@@ -66,7 +57,7 @@
                                         <td data-title="<?=$this->lang->line('action')?>">
                                             <?php echo btn_view('notice/view/'.$notice->noticeID, $this->lang->line('view')) ?>
                                              <?php if(($siteinfos->school_year == $this->session->userdata('defaultschoolyearID')) || ($this->session->userdata('usertypeID') == 1)) { ?>
-                                                <?php echo btn_edit('notice/edit/'.$notice->noticeID, $this->lang->line('edit')) ?>
+                                                
                                                 <?php echo btn_delete('notice/delete/'.$notice->noticeID, $this->lang->line('delete')) ?>
                                              <?php } ?>
                                         </td>

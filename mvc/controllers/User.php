@@ -21,7 +21,9 @@ class User extends Admin_Controller {
 		$this->load->model('document_m');   
 		$this->load->model("make_payment_m"); 
 		$this->load->model("usermeta_m"); 
-		$this->load->model("regtype_m"); 
+		$this->load->model("regtype_m");
+		$this->load->model("notice_m");
+		$this->load->model("alert_m");
 		$language = $this->session->userdata('lang');
 		$this->lang->load('user', $language);
 	}
@@ -115,11 +117,7 @@ class User extends Admin_Controller {
 				'label' => $this->lang->line("user_phone"),
 				'rules' => 'trim|required|min_length[5]|max_length[25]|xss_clean|strip_tags'
 			), 
-			array(
-				'field' => 'password',
-				'label' => $this->lang->line("user_password"),
-				'rules' => 'trim|required|min_length[4]|max_length[40]|xss_clean|strip_tags'
-			),
+			
 		);
 		return $rules;
 	}
@@ -221,12 +219,68 @@ class User extends Admin_Controller {
 				$myProfile = true;
 			}
 		}
+		    $array  = NULL;
+            $this->data["active"]               = 1;
+            $this->data["name"]                 = "";
+            $this->data["email"]                = "";
+            $this->data["phone"]                = "";
+            $this->data["city"]                 = "";
+            $this->data["status"]               = "";
+            $this->data["membertype"]           = "";
+           
+            if ($_GET) {
+                $array = [];
+                $active = $_GET["active"];
+                if ($active != '') {
+                    $array["active"]        = $active;
+                    $this->data["active"]   = $active;   
+                }
+
+                $name   =   $_GET["name"];
+
+                if ($name != "") {
+                    $array["name LIKE"]     = "%$name%";
+                    $this->data["name"]     = $name;
+                } 
+                $status   =   $_GET["status"];
+
+                if ($status != "") {
+                    $array["status"]     = $status;
+                    $this->data["status"]     = $status;
+                } 
+                $membertype   =   $_GET["membertype"];
+
+                if ($membertype != "") {
+                    $array["membertype"]     = $membertype;
+                    $this->data["membertype"]     = $membertype;
+                } 
+                
+                $email  =   $_GET["email"];
+
+                if ($email != "") {
+                    $array["email LIKE"]    = "%$email%";
+                    $this->data["email"]    = $email;
+                } 
+                
+                
+                $city  =   $_GET["city"];
+
+                if ($city != "") {
+                    $array["city LIKE"]  = "%$city%";
+                    $this->data["city"]  = $city;
+                }
+                             
+            }else{
+
+                $array = NULL;
+            }
 
 		if(isset($usertype[$this->session->userdata('usertypeID')]) && $myProfile) {
 			$id = $this->session->userdata('loginuserID');
 			$this->getView($id);
 		} else {
-			$this->data['users'] = $this->user_m->get_user_by_usertype();
+			$this->data['regtype'] = $this->regtype_m->get_order_by_regtype(array(), TRUE);
+			$this->data['users'] = $this->user_m->get_user_by_usertype(Null,$array);
 			$this->data["subview"] = "user/index";
 			$this->load->view('_layout_main', $this->data);
 		}
@@ -278,6 +332,312 @@ class User extends Admin_Controller {
 			$this->data["subview"] = "user/add";
 			$this->load->view('_layout_main', $this->data);
 		}
+	}
+	public function manage_documents(){
+		$userID = $_SESSION['loginuserID'];
+		$users = $this->user_m->get_user_by_usertype($userID);
+		$this->pluckInfo();
+		$this->basicInfo($users);
+		$this->documentInfoUser($users);
+		$this->data["subview"] = "user/manage_documents";
+		$this->load->view('_layout_main', $this->data);
+	}
+	public function edit_documents(){
+		$userID = $_SESSION['loginuserID'];
+		$userEmail = $_SESSION['email'];
+
+		$users = $this->user_m->get_user_by_usertype($userID);
+		$this->pluckInfo();
+		$this->basicInfo($users);
+		$this->documentinfo($users);
+		if($_POST) {
+			if($_FILES['id_front_file']['name']!=""){
+				$title = 'ID Card Front';
+					$fff 	=	$this->unique_document_upload('id_front_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = NULL;
+					$usertypeID = 18;
+					$data = array(
+						'hide' => 1
+					);
+					$dabarray = array(
+						'userID' => $userID,
+						'usertypeID' => $usertypeID,
+						'documenttypeID' => 0,
+					);
+					$this->document_m->update_documents_where($data, $dabarray);
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 0,
+						"hide" => 0,
+					);
+					$this->document_m->insert_document($array);
+			}
+			if($_FILES['id_back_file']['name']!=""){
+				$title = 'ID Card Back';
+					$fff 	=	$this->unique_document_upload('id_back_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = NULL;
+					$usertypeID = 18;
+					$data = array(
+						'hide' => 1
+					);
+					$dabarray = array(
+						'userID' => $userID,
+						'usertypeID' => $usertypeID,
+						'documenttypeID' => 1,
+					);
+					$this->document_m->update_documents_where($data, $dabarray);
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 1,
+						"hide" => 0,
+					);
+					$this->document_m->insert_document($array);
+			}
+			if($_FILES['matric_file']['name']!=""){
+				$title = 'Matric';
+					$fff 	=	$this->unique_document_upload('matric_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = $this->input->post("passing_year_matric");	
+					$usertypeID = 18;
+					$data = array(
+						'hide' => 1
+					);
+					$dabarray = array(
+						'userID' => $userID,
+						'usertypeID' => $usertypeID,
+						'documenttypeID' => 2,
+					);
+					$this->document_m->update_documents_where($data, $dabarray);
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 2,
+						"hide" => 0,
+					);
+					$this->document_m->insert_document($array);
+			}		
+			if($_FILES['inter_file']['name']!=""){
+				$title = 'Inter';
+					$fff 	=	$this->unique_document_upload('inter_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = $this->input->post("passing_year_inter");
+					
+					$usertypeID = 18;
+					$data = array(
+						'hide' => 1
+					);
+					$dabarray = array(
+						'userID' => $userID,
+						'usertypeID' => $usertypeID,
+						'documenttypeID' => 3,
+					);
+					$this->document_m->update_documents_where($data, $dabarray);
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 3,
+						"hide" => 0,
+					);
+					$this->document_m->insert_document($array);
+			}
+			if($_FILES['undergraduate_file']['name']!=""){
+				$title = 'Undergraduate';
+					$fff 	=	$this->unique_document_upload('undergraduate_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = $this->input->post("passing_year_undergraduate");	
+					$usertypeID = 18;
+					$data = array(
+						'hide' => 1
+					);
+					$dabarray = array(
+						'userID' => $userID,
+						'usertypeID' => $usertypeID,
+						'documenttypeID' => 4,
+					);
+					$this->document_m->update_documents_where($data, $dabarray);
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 4,
+						"hide" => 0,
+					);
+					$this->document_m->insert_document($array);
+			}
+			if($_FILES['postgraduate_file']['name']!=""){
+				$title = 'PG/Certificate';
+					$fff 	=	$this->unique_document_upload('postgraduate_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = $this->input->post("passing_year_postgraduate");
+					
+					$usertypeID = 18;
+					$data = array(
+						'hide' => 1
+					);
+					$dabarray = array(
+						'userID' => $userID,
+						'usertypeID' => $usertypeID,
+						'documenttypeID' => 5,
+					);
+					$this->document_m->update_documents_where($data, $dabarray);
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 5,
+						"hide" => 0,
+					);
+					$this->document_m->insert_document($array);
+			}
+					if($_FILES['pmdc_file']['name']!=''){
+						$title = 'PMDC';
+					$fff 	=	$this->unique_document_upload('pmdc_file');
+					$file = $this->upload_data['file']['file_name'];
+					$passing_year = $this->input->post("passing_year_pmdc");
+					
+					$usertypeID = 18;
+					$data = array(
+						'hide' => 1
+					);
+					$dabarray = array(
+						'userID' => $userID,
+						'usertypeID' => $usertypeID,
+						'documenttypeID' => 6,
+					);
+					$this->document_m->update_documents_where($data, $dabarray);
+					$array = array(
+						'title' => $title,
+						'file' => $file,
+						'userID' => $userID,
+						'passing_year' => $passing_year,
+						'usertypeID' => $usertypeID,
+						"create_date" => date("Y-m-d H:i:s"),
+						"create_userID" => $userID,
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 6,
+						"hide" => 0,
+					);
+					$this->document_m->insert_document($array);
+					}
+					$array = array();
+							$array["status"] 		= 0;
+							$array["modify_date"] 	= date("Y-m-d H:i:s");
+							 
+							$this->user_m->update_user($array, $userID);
+
+							$arr 	 = array(
+											'status' 	=> 0, 
+											'reason' 	=> 'Due to Uploading New Document', 
+											'username' 	=> $this->session->userdata('username'), 
+											);
+
+							$array_meta = array(
+			                    "userID" 	=> $userID,
+			                    "meta_key" 		=> 'status_update',
+			                    "meta_value" 	=> serialize($arr),
+			                );
+							
+                	$this->usermeta_m->insert_usermeta($array_meta);
+                		$dbarray["title"] = 'Documnet Changed';
+						$dbarray["notice"] = 'Following Document/s are updated by User ( '.$userEmail.' ) - '.$title;
+						$dbarray['schoolyearID'] =  1;
+						$dbarray["date"] = date("Y-m-d");
+						$dbarray['create_date'] = date("Y-m-d H:i:s");
+						$dbarray['create_userID'] = $userID;
+						$dbarray['create_usertypeID'] = 18;
+						$dbarray['is_read'] = 0;
+					$this->notice_m->insert_notice($dbarray);
+
+					$noticeID = $this->db->insert_id();
+					if(!empty($noticeID)) {
+						$this->alert_m->insert_alert(array('itemID' => $noticeID, "userID" => $userID, 'usertypeID' => 18, 'itemname' => 'notice'));
+					}
+					$this->session->set_flashdata('success', 'Documents Updated');
+				redirect(base_url("dashboard/index"));
+				
+			}
+		else{
+			$this->data["subview"] = "user/edit_documents";
+		$this->load->view('_layout_main', $this->data);
+		}
+		
+	
+	}
+	public function edit_profile(){
+		$id = $_SESSION['loginuserID'];
+		$this->data['userdetails'] = $this->user_m->get_single_user(array('userID' => $id));
+		if($_POST) {
+			$rules = $this->register_rules();
+			unset($rules[1]);
+			$this->form_validation->set_rules($rules);
+			if ($this->form_validation->run() == FALSE) {
+
+				$this->data["subview"] = "user/edit_profile";
+				$this->load->view('_layout_main', $this->data);
+				 
+			} else {
+				$array["name"] = $this->input->post("name");
+
+				$array["sex"] = $this->input->post("sex");  
+				$array["phone"] = $this->input->post("phone");   
+				$array["current_job"] = $this->input->post("current_job");
+				$array["country"] = $this->input->post("country");
+				$array["city"] = $this->input->post("city");
+				$array["province"] = $this->input->post("province");
+				$array["address"] = $this->input->post("address");
+				$array["clinic_address"] = $this->input->post("clinic_address"); 
+				$array["modify_date"] = date("Y-m-d h:i:s"); 
+				 
+				$this->user_m->update_user($array, $id);
+				
+				$this->session->set_flashdata('success', 'Profile Updated');
+				redirect(base_url("dashboard/index"));
+			
+		}
+		}
+		else{
+			$this->data["subview"] = "user/edit_profile";
+		$this->load->view('_layout_main', $this->data);
+		}
+		
 	}
 
 	public function unique_usertypeID() {
@@ -442,6 +802,11 @@ class User extends Admin_Controller {
 							
 							if($array["status"]==1){
 								$array["member_since"] 	= date("Y-m-d H:i:s");
+								$membertypename = $this->regtype_m->get_single_regtype(array('regtypeID' => $array["membertype"]), TRUE);
+								var_dump($membertypename->regtype);
+								$membername= $membertypename->regtype;
+							$useremail = $this->data['user']->email;
+							$this->createMemberemail($useremail,$membertypename);
 							}
 							$array["modify_date"] 	= date("Y-m-d H:i:s");
 							 
@@ -458,8 +823,10 @@ class User extends Admin_Controller {
 			                    "meta_key" 		=> 'status_update',
 			                    "meta_value" 	=> serialize($arr),
 			                );
+							
                 			$this->usermeta_m->insert_usermeta($array_meta);
-
+                			//$this->createMemberemail($useremail,$membertypename);
+                			
 							$this->session->set_flashdata('success', $this->lang->line('menu_success'));
 							redirect(base_url("user/index"));
 						}
@@ -497,16 +864,14 @@ class User extends Admin_Controller {
 					if ($userID==Null){
 						$userID= $id;
 					}
-					$fff 	=	$this->photoupload('photo');
+					$photoo 	=	$this->photoupload('photo');
 					$array['photo'] = $this->upload_data['file']['file_name'];
-
 					$this->user_m->update_user($array, $userID);
 					
 					$title = 'ID Card Front';
 					$fff 	=	$this->unique_document_upload('id_front_file');
 					$file = $this->upload_data['file']['file_name'];
 					$passing_year = NULL;
-					
 					$usertypeID = 18;
 					$array = array(
 						'title' => $title,
@@ -516,7 +881,9 @@ class User extends Admin_Controller {
 						'usertypeID' => $usertypeID,
 						"create_date" => date("Y-m-d H:i:s"),
 						"create_userID" => $userID,
-						"create_usertypeID" => $usertypeID
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 0,
+						"hide" => 0,
 					);
 					$this->document_m->insert_document($array);
 					$title = 'ID Card Back';
@@ -533,7 +900,9 @@ class User extends Admin_Controller {
 						'usertypeID' => $usertypeID,
 						"create_date" => date("Y-m-d H:i:s"),
 						"create_userID" => $userID,
-						"create_usertypeID" => $usertypeID
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 1,
+						"hide" => 0,
 					);
 					$this->document_m->insert_document($array);
 					$title = 'Matric';
@@ -550,7 +919,9 @@ class User extends Admin_Controller {
 						'usertypeID' => $usertypeID,
 						"create_date" => date("Y-m-d H:i:s"),
 						"create_userID" => $userID,
-						"create_usertypeID" => $usertypeID
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 2,
+						"hide" => 0,
 					);
 					$this->document_m->insert_document($array);
 					$title = 'Inter';
@@ -567,7 +938,9 @@ class User extends Admin_Controller {
 						'usertypeID' => $usertypeID,
 						"create_date" => date("Y-m-d H:i:s"),
 						"create_userID" => $userID,
-						"create_usertypeID" => $usertypeID
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 3,
+						"hide" => 0,
 					);
 					$this->document_m->insert_document($array);
 					$title = 'Undergraduate';
@@ -584,7 +957,9 @@ class User extends Admin_Controller {
 						'usertypeID' => $usertypeID,
 						"create_date" => date("Y-m-d H:i:s"),
 						"create_userID" => $userID,
-						"create_usertypeID" => $usertypeID
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 4,
+						"hide" => 0,
 					);
 					$this->document_m->insert_document($array);
 					$title = 'PG/Certificate';
@@ -601,11 +976,13 @@ class User extends Admin_Controller {
 						'usertypeID' => $usertypeID,
 						"create_date" => date("Y-m-d H:i:s"),
 						"create_userID" => $userID,
-						"create_usertypeID" => $usertypeID
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 5,
+						"hide" => 0,
 					);
 					$this->document_m->insert_document($array);
 					if($this->input->post("passing_year_pmdc")!=''){
-						$title = 'PMDC';
+					$title = 'PMDC';
 					$fff 	=	$this->unique_document_upload('pmdc_file');
 					$file = $this->upload_data['file']['file_name'];
 					$passing_year = $this->input->post("passing_year_pmdc");
@@ -619,7 +996,9 @@ class User extends Admin_Controller {
 						'usertypeID' => $usertypeID,
 						"create_date" => date("Y-m-d H:i:s"),
 						"create_userID" => $userID,
-						"create_usertypeID" => $usertypeID
+						"create_usertypeID" => $usertypeID,
+						"documenttypeID" => 6,
+						"hide" => 0,
 					);
 					$this->document_m->insert_document($array);
 					}
@@ -689,6 +1068,7 @@ class User extends Admin_Controller {
                                 "email"               	 => $this->input->post("email"),
                             ];
                             $this->session->set_userdata($session);
+                           $this->userRegisterdemail($lastId,$this->input->post("email"),$this->input->post("name"));
 				$returnArray = [ 'return' => true, 'message' => 'Success', 'userid' => $lastId, ];
 				echo json_encode($returnArray);
 				// $this->session->set_flashdata('success', $this->lang->line('menu_success'));
@@ -728,11 +1108,7 @@ class User extends Admin_Controller {
 				'label' => 'Status',
 				'rules' => 'trim|required|xss_clean'
 			), 
-			array(
-				'field' => 'reason',
-				'label' => 	'Reason',
-				'rules' => 'trim|required|xss_clean'
-			)   
+			 
 		);
 		return $rules;
 	}
@@ -886,7 +1262,7 @@ class User extends Admin_Controller {
             $explode = explode('.', $file_name);
             if(customCompute($explode) >= 2) {
 	            $new_file = $file_name_rename.'.'.end($explode);
-				$config['upload_path'] = "./uploads/documents";
+				$config['upload_path'] = "./uploads/images";
 				$config['allowed_types'] = "gif|jpg|png|jpeg|pdf|doc|xml|docx|GIF|JPG|PNG|JPEG|PDF|DOC|XML|DOCX|xls|xlsx|txt|ppt|csv";
 				$config['file_name'] = $new_file;
 				$config['max_size'] = '5120';
@@ -965,9 +1341,20 @@ class User extends Admin_Controller {
 	private function documentInfo($users) {
 		if(customCompute($users)) {
 			$this->data['documents'] = $this->document_m->get_order_by_document(array('userID' => $users->userID,'usertypeID' => $users->usertypeID));
+
 		} else {
 			$this->data['documents'] = [];
 		}
+
+	}
+	private function documentInfoUser($users) {
+		if(customCompute($users)) {
+			$this->data['documents'] = $this->document_m->get_order_by_document(array('userID' => $users->userID,'usertypeID' => $users->usertypeID, 'hide' =>0));
+
+		} else {
+			$this->data['documents'] = [];
+		}
+
 	}
 
 	public function download_document() {
