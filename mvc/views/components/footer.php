@@ -150,6 +150,27 @@ toastr.error("<?=$this->session->flashdata('error');?>", "Error");
 		">"
 });
 	</script>
+	<?php
+        
+            if ( isset($footerassets) ) {
+
+                foreach ( $footerassets as $assetstype => $footerasset ) {
+                    if ( $assetstype == 'css' ) {
+                        if ( customCompute($footerasset) ) {
+                            foreach ( $footerasset as $keycss => $css ) {
+                                echo '<link rel="stylesheet" href="' . base_url($css) . '">' . "\n";
+                            }
+                        }
+                    } elseif ( $assetstype == 'js' ) {
+                        if ( customCompute($footerasset) ) {
+                            foreach ( $footerasset as $keyjs => $js ) {
+                                echo '<script type="text/javascript" src="' . base_url($js) . '"></script>' . "\n";
+                            }
+                        }
+                    }
+                }
+            }
+        ?>
 	<!--end::Custom Javascript-->
 	<!--end::Javascript-->
 	</body>

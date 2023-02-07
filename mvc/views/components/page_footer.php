@@ -99,7 +99,9 @@
         <?php endif ?>
 
         <?php
+        var_dump($footerassets); die();
             if ( isset($footerassets) ) {
+
                 foreach ( $footerassets as $assetstype => $footerasset ) {
                     if ( $assetstype == 'css' ) {
                         if ( customCompute($footerasset) ) {

@@ -40,8 +40,12 @@
                         </label>
 
                             <?php 
-                                $bloodArray =  get_status_type();
-                                echo form_dropdown("status", $bloodArray, set_value("status",$status), " id='status' class='form-control bg-transparent' data-control='select2'  "); 
+                            $array = [""=>'Select Member Status'];
+                        $array2 = get_status_type();
+
+                        $array  =   array_merge($array, $array2);
+                                //$bloodArray =  get_status_type();
+                                echo form_dropdown("status", $array, set_value("status",$status), " id='status' class='form-control bg-transparent' data-control='select2'  "); 
                             ?>
                         </div>
                     </div>
@@ -50,8 +54,12 @@
                         <label for="title" class="col-sm-2   fs-6 fw-semibold mb-2">Login Status
                         </label>
                             <?php 
-                                $loginArray =  get_status_login();
-                                echo form_dropdown("active", $loginArray, set_value("active",$active), " id='active' class='form-control bg-transparent ' data-control='select2'  "); 
+                             $array = [""=>'All'];
+                        $array2 = get_status_login();
+
+                        $array  =   array_merge($array, $array2);
+                                //$loginArray =  get_status_login();
+                                echo form_dropdown("active", $array, set_value("active",$active), " id='active' class='form-control bg-transparent ' data-control='select2'  "); 
                             ?>
                         </div>
                     </div>
@@ -60,7 +68,7 @@
                         <label for="title" class="col-sm-2   fs-6 fw-semibold mb-2">Member Type
                         </label>
                             <select id="membertype" class="form-control form-select"   name="membertype" data-control="select2" data-placeholder="Select Member Type" >
-                            <option>Please Select member type</option>
+                            <option value="">Please Select member type</option>
                             <?php 
                             foreach ($regtype as $r) {
                                 $tenure12= get_tenure();?>

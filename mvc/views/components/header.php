@@ -24,6 +24,25 @@
         
         <script type="text/javascript" src="<?php echo base_url('assets/inilabs/jquery.min.js'); ?>"></script>
 		<!--end::Global Stylesheets Bundle-->
+		<?php
+            if(isset($headerassets)) {
+                foreach ($headerassets as $assetstype => $headerasset) {
+                    if($assetstype == 'css') {
+                      if(customCompute($headerasset)) {
+                        foreach ($headerasset as $keycss => $css) {
+                          echo '<link rel="stylesheet" href="'.base_url($css).'">'."\n";
+                        }
+                      }
+                    } elseif($assetstype == 'js') {
+                      if(customCompute($headerasset)) {
+                        foreach ($headerasset as $keyjs => $js) {
+                          echo '<script type="text/javascript" src="'.base_url($js).'"></script>'."\n";
+                        }
+                      }
+                    }
+                }
+            }
+        ?>
 	</head>
 	<!--end::Head-->
 	

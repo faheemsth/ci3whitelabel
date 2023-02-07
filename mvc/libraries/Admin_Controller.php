@@ -470,15 +470,14 @@ class Admin_Controller extends MY_Controller {
 		$designType = 'LTR';
 		$this->data['panel_title'] = $this->lang->line('panel_title');
 		$html = $this->load->view($viewpath, $this->data, true);
-        // var_dump($html);
-        // exit();
+         
 		$this->load->library('mhtml2pdf');
-
+        
 		$this->mhtml2pdf->folder('uploads/report/');
 		$this->mhtml2pdf->filename('Report');
 		$this->mhtml2pdf->paper($pagesize, $pagetype);
 		$this->mhtml2pdf->html($html);
-
+       
 		if(!empty($stylesheet)) {
 			$stylesheet = file_get_contents(base_url('assets/pdf/'.$designType.'/'.$stylesheet));
 			return $this->mhtml2pdf->create($mode, $this->data['panel_title'], $stylesheet);

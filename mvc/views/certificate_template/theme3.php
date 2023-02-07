@@ -13,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css?family=Prosto+One" rel="stylesheet"> 
     <link href="<?=base_url('assets/bootstrap/bootstrap.min.css')?>" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url('assets/inilabs/combined.css'); ?>" >
-
     <?php
         if(isset($headerassets)) {
             foreach ($headerassets as $assetstype => $headerasset) {
@@ -109,12 +108,12 @@
 
         .testimonial {
             min-height: 550px; 
-            width: 297mm;
+           width: 297mm;
             height: 201mm; 
             padding: 40mm 10mm 10mm 10mm;
             margin-left: auto;
             margin-right: auto;
-           background: url("<?php echo base_url('/'); ?><?='uploads/images/'.$certificate_template->background_image?>") no-repeat !important;
+            background: url("<?php echo base_url('/'); ?><?='uploads/images/'.$certificate_template->background_image?>") no-repeat !important;
             background-size: 100% 100% !important;
             -webkit-print-color-adjust: exact;
         }
@@ -230,15 +229,7 @@
     </style>
 </head>
 <body>
-    <div class="row">
-        <div class="col-sm-12 text-center" style="margin:10px 0px">
-            <?php
-                $pdf_preview_uri = base_url('studentreport');
-                echo btn_flat_printReport('student', $this->lang->line('report_print'), 'printablediv'); 
-
-            ?>
-        </div>
-    </div>
+     
 
     <div class="row">
         <div class="col-sm-12">
@@ -247,35 +238,35 @@
 
                 <div class="testimonial">
                     <div class="mainTestimonial">
-                        <h2 class="top_heading_title"><?=$top_heading_title?></h2>
+                        <h2 class="top_heading_title mt-3"><?=$certificate_template->top_heading_title?></h2>
 
                        <div class="row">
-                            <span class="topHeadingLeft"><?=$top_heading_left?></span> 
+                            <span class="topHeadingLeft"><?=$certificate_template->top_heading_left?></span> 
 
                             <span class="topHeadingMiddle"><img class="topHeadingMiddleImg" src="<?=base_url('uploads/images/'.$siteinfos->photo)?>"></span> 
 
-                            <span class="topHeadingRight"><?=$top_heading_right?></span> 
+                            <span class="topHeadingRight"><?=$certificate_template->top_heading_right?></span> 
                        </div>
                     </div>
 
 
                     <div class="headSection">
                         <div class="row" >
-                            <div class="col-sm-12 mainMiddleTextCenter"><span class="mainMiddleText"><?=$main_middle_text?></span></div>
+                            <div class="col-sm-12 mainMiddleTextCenter"><span class="mainMiddleText"><?=$certificate_template->main_middle_text?></span></div>
                         </div>
                     </div>
 
                     <div class="testimonialInfo">
                         <p class="testimonialContent">
-                            <?=$template?>
+                            <?=$certificate_template->template?>
                         </p>
                     </div>
 
                     <div class="footerSection">
                         <div class="row" >
-                            <div style="padding: 0px;" class="col-sm-4 footer_left_text"><?=$footer_left_text?></div>
+                            <div style="padding: 0px;" class="col-sm-4 footer_left_text"><?=$certificate_template->footer_left_text?></div>
                             <div  style="padding: 0px;"  class="col-sm-4 footer_middle_text"></div>
-                            <div  style="padding: 0px;"  class="col-sm-4 footer_right_text"><?=$footer_right_text?></div>
+                            <div  style="padding: 0px;"  class="col-sm-4 footer_right_text"><?=$certificate_template->footer_right_text?></div>
                         </div>
                     </div>
                 </div>
@@ -283,27 +274,6 @@
         </div>
     </div>
 
-    <script language="javascript" type="text/javascript">
-        function printDiv(divID) {
-            //Get the HTML of div
-            var divElements = document.getElementById(divID).innerHTML;
-            //Get the HTML of whole page
-            var oldPage = document.body.innerHTML;
-
-            //Reset the page's HTML with div's HTML only
-            document.body.innerHTML = divElements;
-
-            //Print Page
-            window.print();
-
-            //Restore orignal HTML
-            document.body.innerHTML = oldPage;
-        }
-
-        function closeWindow() {
-            location.reload();
-        }
-    </script>
-
+     
 </body>
 </html>

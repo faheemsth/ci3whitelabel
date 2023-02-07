@@ -220,7 +220,7 @@ class User extends Admin_Controller {
 			}
 		}
 		    $array  = NULL;
-            $this->data["active"]               = 1;
+            $this->data["active"]               = "";
             $this->data["name"]                 = "";
             $this->data["email"]                = "";
             $this->data["phone"]                = "";
@@ -803,7 +803,7 @@ class User extends Admin_Controller {
 							if($array["status"]==1){
 								$array["member_since"] 	= date("Y-m-d H:i:s");
 								$membertypename = $this->regtype_m->get_single_regtype(array('regtypeID' => $array["membertype"]), TRUE);
-								var_dump($membertypename->regtype);
+								//var_dump($membertypename->regtype);
 								$membername= $membertypename->regtype;
 							$useremail = $this->data['user']->email;
 							$this->createMemberemail($useremail,$membertypename);
