@@ -251,3 +251,23 @@ ERROR - 2023-02-07 10:59:11 --> Severity: 8192 --> Array and string offset acces
 ERROR - 2023-02-07 10:59:11 --> Severity: 8192 --> Array and string offset access syntax with curly braces is deprecated C:\xampp\htdocs\portal\mvc\libraries\mpdf\src\Image\ImageProcessor.php 1055
 ERROR - 2023-02-07 10:59:13 --> Severity: error --> Exception: Data has already been sent to output (C:\xampp\htdocs\portal\main\core\Exceptions.php at line 271), unable to output PDF file C:\xampp\htdocs\portal\mvc\libraries\mpdf\src\Mpdf.php 9294
 ERROR - 2023-02-07 10:59:13 --> Severity: Warning --> Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\portal\main\core\Exceptions.php:271) C:\xampp\htdocs\portal\main\core\Common.php 570
+ERROR - 2023-02-07 11:36:25 --> Could not find the language line "menu_Registration Type"
+ERROR - 2023-02-07 11:36:26 --> Could not find the language line "menu_Registration Type"
+ERROR - 2023-02-07 11:36:26 --> Could not find the language line "menu_Registration Type"
+ERROR - 2023-02-07 11:36:26 --> Could not find the language line "menu_Registration Type"
+ERROR - 2023-02-07 15:26:55 --> 404 Page Not Found: Home/assets
+ERROR - 2023-02-07 15:27:00 --> 404 Page Not Found: Sigin/index
+ERROR - 2023-02-07 15:27:26 --> Could not find the language line "menu_Registration Type"
+ERROR - 2023-02-07 15:27:26 --> 404 Page Not Found: Dashboard/assets
+ERROR - 2023-02-07 15:27:26 --> 404 Page Not Found: Dashboard/assets
+ERROR - 2023-02-07 15:27:27 --> 404 Page Not Found: Dashboard/assets
+ERROR - 2023-02-07 15:27:31 --> Severity: error --> Exception: Unable to locate the model you have specified: Certificate_logs C:\xampp\htdocs\portal\main\core\Loader.php 348
+ERROR - 2023-02-07 15:28:12 --> Severity: error --> Exception: C:\xampp\htdocs\portal\mvc\models/Certificatelogs_m.php exists, but doesn't declare class Certificatelogs_m C:\xampp\htdocs\portal\main\core\Loader.php 340
+ERROR - 2023-02-07 15:28:31 --> Could not find the language line "menu_Registration Type"
+ERROR - 2023-02-07 15:28:33 --> 404 Page Not Found: Assets/media
+ERROR - 2023-02-07 15:28:33 --> 404 Page Not Found: Assets/media
+ERROR - 2023-02-07 15:28:33 --> 404 Page Not Found: Assets/media
+ERROR - 2023-02-07 15:28:36 --> Severity: Notice --> Undefined variable: classesID C:\xampp\htdocs\portal\mvc\views\report\certificate\CertificateReport.php 16
+ERROR - 2023-02-07 15:28:37 --> Could not find the language line "balancefeesreport_all_class"
+ERROR - 2023-02-07 15:28:38 --> Severity: Notice --> Undefined property: Certificatereport::$certificate_logs_m C:\xampp\htdocs\portal\mvc\controllers\Certificatereport.php 166
+ERROR - 2023-02-07 15:28:38 --> Severity: error --> Exception: Call to a member function insert_certificate_logs() on null C:\xampp\htdocs\portal\mvc\controllers\Certificatereport.php 166

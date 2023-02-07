@@ -19,6 +19,7 @@ class Certificatereport extends Admin_Controller {
 		$this->load->model('user_m');
 		$this->load->model("regtype_m");
 		$this->load->model("certificate_template_m");
+		$this->load->model("certificatelogs_m");
 		$this->load->model("mailandsmstemplatetag_m");
 		$language = $this->session->userdata('lang');
 		$this->lang->load('certificatereport', $language);
@@ -156,7 +157,13 @@ class Certificatereport extends Admin_Controller {
 
 					$this->data['theme'] = $this->data['themeArray'][$template->theme];
 					// $this->voucherPDF('vouchermodule.css',$this->data,'report/certificate/CertificateReportLayout');
-					$this->load->view('report/certificate/CertificateReportLayout', $this->data);		
+					$this->load->view('report/certificate/CertificateReportLayout', $this->data);
+					$datarray = array(
+                            "userID"       => $userID,
+                            "templateID"    => $templateID,
+                            "filename"    => $userID.$templateID.'.pdf'
+                        );
+                $this->certificatelogs_m->insert_certificate_logs($datarray);		
 				} else {
 					$this->data["subview"] = "error";
 					$this->load->view('_layout_main', $this->data);
