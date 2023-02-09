@@ -22,6 +22,8 @@ class User extends Admin_Controller {
 		$this->load->model("make_payment_m"); 
 		$this->load->model("usermeta_m"); 
 		$this->load->model("regtype_m");
+		$this->load->model("certificatelogs_m");
+		$this->load->model("certificate_template_m");
 		$this->load->model("notice_m");
 		$this->load->model("alert_m");
 		$language = $this->session->userdata('lang');
@@ -332,6 +334,17 @@ class User extends Admin_Controller {
 			$this->data["subview"] = "user/add";
 			$this->load->view('_layout_main', $this->data);
 		}
+	}
+	public function certificates(){
+		$userID = $_SESSION['loginuserID'];
+		$this->data['certificatelogs'] = $this->certificatelogs_m->get_order_by_certificate_logs(array('userID' => $userID));
+
+		$this->data['certificate_templates'] = $this->certificate_template_m->get_order_by_certificate_template();
+		$this->data['templatnamepluck'] = pluck($this->data['certificate_templates'], 'name', 'certificate_templateID' );;
+		
+		$this->data["subview"] = "user/certificates";
+		$this->load->view('_layout_main', $this->data);
+	
 	}
 	public function manage_documents(){
 		$userID = $_SESSION['loginuserID'];

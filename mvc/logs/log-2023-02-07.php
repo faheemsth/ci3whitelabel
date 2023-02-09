@@ -271,3 +271,90 @@ ERROR - 2023-02-07 15:28:36 --> Severity: Notice --> Undefined variable: classes
 ERROR - 2023-02-07 15:28:37 --> Could not find the language line "balancefeesreport_all_class"
 ERROR - 2023-02-07 15:28:38 --> Severity: Notice --> Undefined property: Certificatereport::$certificate_logs_m C:\xampp\htdocs\portal\mvc\controllers\Certificatereport.php 166
 ERROR - 2023-02-07 15:28:38 --> Severity: error --> Exception: Call to a member function insert_certificate_logs() on null C:\xampp\htdocs\portal\mvc\controllers\Certificatereport.php 166
+ERROR - 2023-02-07 15:45:17 --> 404 Page Not Found: Home/assets
+ERROR - 2023-02-07 15:45:21 --> 404 Page Not Found: Sigin/index
+ERROR - 2023-02-07 15:46:26 --> 404 Page Not Found: Dashboard/assets
+ERROR - 2023-02-07 15:46:26 --> 404 Page Not Found: Dashboard/assets
+ERROR - 2023-02-07 15:46:26 --> 404 Page Not Found: Dashboard/assets
+ERROR - 2023-02-07 15:46:32 --> 404 Page Not Found: User/certificates
+ERROR - 2023-02-07 15:47:07 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 15:47:07 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 15:47:07 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:09:35 --> Severity: error --> Exception: syntax error, unexpected '=>' (T_DOUBLE_ARROW), expecting ')' C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:09:51 --> Severity: Notice --> Trying to get property '44' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:09:52 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:09:56 --> Severity: Notice --> Trying to get property '44' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:10:41 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:11:18 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:11:20 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:12:22 --> Severity: Notice --> Undefined variable: document C:\xampp\htdocs\portal\mvc\views\user\certificates.php 30
+ERROR - 2023-02-07 16:12:22 --> Severity: Notice --> Trying to get property 'title' of non-object C:\xampp\htdocs\portal\mvc\views\user\certificates.php 30
+ERROR - 2023-02-07 16:12:22 --> Severity: Notice --> Undefined variable: document C:\xampp\htdocs\portal\mvc\views\user\certificates.php 35
+ERROR - 2023-02-07 16:12:22 --> Severity: Notice --> Trying to get property 'documentID' of non-object C:\xampp\htdocs\portal\mvc\views\user\certificates.php 35
+ERROR - 2023-02-07 16:12:22 --> Severity: Notice --> Undefined variable: profile C:\xampp\htdocs\portal\mvc\views\user\certificates.php 35
+ERROR - 2023-02-07 16:12:22 --> Severity: Notice --> Trying to get property 'userID' of non-object C:\xampp\htdocs\portal\mvc\views\user\certificates.php 35
+ERROR - 2023-02-07 16:12:22 --> Severity: Notice --> Undefined variable: profile C:\xampp\htdocs\portal\mvc\views\user\certificates.php 35
+ERROR - 2023-02-07 16:12:22 --> Severity: Notice --> Trying to get property 'usertypeID' of non-object C:\xampp\htdocs\portal\mvc\views\user\certificates.php 35
+ERROR - 2023-02-07 16:12:22 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:12:22 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:12:22 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:22:14 --> Severity: Notice --> Undefined variable: certificatelogs C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:22:14 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:22:14 --> Severity: Notice --> Trying to get property 'name' of non-object C:\xampp\htdocs\portal\mvc\views\user\certificates.php 30
+ERROR - 2023-02-07 16:22:15 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:22:15 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:22:15 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:23:58 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:23:58 --> Severity: Notice --> Trying to get property 'name' of non-object C:\xampp\htdocs\portal\mvc\views\user\certificates.php 30
+ERROR - 2023-02-07 16:23:59 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:23:59 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:23:59 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:28:11 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:28:39 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 342
+ERROR - 2023-02-07 16:29:37 --> Severity: Notice --> Undefined variable: certificatelogs C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:29:37 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:29:37 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 342
+ERROR - 2023-02-07 16:30:02 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:30:02 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 342
+ERROR - 2023-02-07 16:30:23 --> Severity: Notice --> Undefined variable: data C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:30:23 --> Severity: Notice --> Trying to access array offset on value of type null C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:30:23 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:30:23 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 342
+ERROR - 2023-02-07 16:30:43 --> Severity: Notice --> Undefined variable: certificatelogs C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:30:43 --> Severity: Notice --> Undefined property: User::$ C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:30:43 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:30:43 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 342
+ERROR - 2023-02-07 16:33:45 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:33:58 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:35:59 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:36:55 --> Severity: Notice --> Undefined variable: certificatelogs C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:36:55 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:37:49 --> Severity: Notice --> Trying to get property 'templateID' of non-object C:\xampp\htdocs\portal\mvc\controllers\User.php 341
+ERROR - 2023-02-07 16:43:21 --> Severity: Notice --> Undefined property: stdClass::$templateID C:\xampp\htdocs\portal\mvc\helpers\action_helper.php 426
+ERROR - 2023-02-07 16:45:20 --> Severity: Notice --> Undefined property: stdClass::$temlateID C:\xampp\htdocs\portal\mvc\views\user\certificates.php 30
+ERROR - 2023-02-07 16:45:20 --> Severity: Notice --> Undefined index:  C:\xampp\htdocs\portal\mvc\views\user\certificates.php 30
+ERROR - 2023-02-07 16:45:20 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:45:20 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:45:20 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:45:33 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:45:33 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:45:33 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:48:52 --> Severity: error --> Exception: syntax error, unexpected '<' C:\xampp\htdocs\portal\mvc\views\user\certificates.php 35
+ERROR - 2023-02-07 16:48:53 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:49:12 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:49:12 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:49:12 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:49:22 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:49:22 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:49:22 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:49:47 --> Severity: error --> Exception: syntax error, unexpected '$certificatelog' (T_VARIABLE), expecting ')' C:\xampp\htdocs\portal\mvc\views\user\certificates.php 35
+ERROR - 2023-02-07 16:49:47 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:50:39 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:50:39 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:50:39 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:51:33 --> Severity: error --> Exception: Call to undefined function btn_downlaod() C:\xampp\htdocs\portal\mvc\views\user\certificates.php 35
+ERROR - 2023-02-07 16:51:34 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:54:26 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:54:26 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:54:26 --> 404 Page Not Found: User/assets
+ERROR - 2023-02-07 16:54:30 --> 404 Page Not Found: Uploads/report

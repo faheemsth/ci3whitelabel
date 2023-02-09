@@ -34,6 +34,7 @@
          <?php if($this->session->userdata("usertypeID")=='18') { ?>
           <div class="menu-item "><a href="<?php echo base_url('user/edit_profile'); ?>" class="menu-link"><i class="fa fa fa-user"></i><span class="menu-link">Edit Profile</span> </a></div>
           <div class="menu-item "><a href="<?php echo base_url('user/manage_documents');?>" class="menu-link"><i class="fa fa fa-file"></i><span class="menu-link">Manage Documents</span> </a></div>
+          <div class="menu-item "><a href="<?php echo base_url('user/certificates');?>" class="menu-link"><i class="fa fa fa-certificate"></i><span class="menu-link">Certificates</span> </a></div>
          <?php }
          ?>
         <!--end:Menu item-->
